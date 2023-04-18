@@ -1,0 +1,143 @@
+<div class="container-scroller">
+
+  <div class="main-panel">
+    <div class="content-wrapper">
+      <div class="row">
+        <div class="col-lg-6 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Indicadores</h4>
+              <p class="card-description"> <code>Valores Observados</code>
+              </p>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>{{dolar.nombre}}</th>
+                      <th>{{uf.nombre}}</th>
+                      <th>Fecha</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{{dolar.valor}}</td>
+                      <td>{{uf.valor}}</td>
+                      <td>{{uf.fecha}}</td>
+                      <td><label
+                          [ngClass]="[indicatorStatus ? 'badge badge-success': 'badge badge-warning']">{{statusText}}</label>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Animes</h4>
+              <p class="card-description">
+                <code>Scraping configurados</code>
+              </p>
+              <div class="form-group">
+                <tr>
+                  <th>
+                    
+                    <label class="card-title">Search by name</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control" placeholder="Search by name"
+                        aria-label="Search by name" aria-describedby="basic-addon2">
+                        <button class="badge btn btn-sm btn-primary " type="icon">
+                          <svg xmlns="http://www.w3.org/2000/svg"
+                            width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path
+                              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                          </svg>
+                        </button>
+                    </div>
+                  </th>
+                  <th style="padding: 10px;">
+                    <label class="card-title">Search by anime</label>
+                    <select class="badge" style="width:100%; background-color: #2A3038;"
+                    (change)="update($event)">
+                    <option value="" >-------</option>
+                      <option [value]="item" *ngFor="let item of anime_names">{{item}}</option>
+                    </select>
+                  </th>
+                  <th>
+                    <label class="card-title">Search by anime</label>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                      Launch demo modal
+                    </button>
+                  </th>
+                </tr>
+                <br>
+                <tr>
+
+                </tr>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Image</th>
+                      <th>Title</th>
+                      <th>Chapter name</th>
+                      <th>Season</th>
+                      <th>Link</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngFor="let item of configured_animes.results">
+                    <tr>
+                      <td><img src="/assets/icon.png"></td>
+                      <td>{{item.title}}</td>
+                      <td>{{item.chapter_name | slice:0:20}}</td>
+                      <td class="text-info">{{item.season}} <i class="mdi mdi-arrow-down"></i></td>
+                      <td><a href="{{item.chapter_link}}">{{item.chapter_link | slice:0:20}}</a></td>
+                      <td><label class="badge badge-success">Activo</label></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <table class="table table-hover">
+                  <tr>
+                    <td class="paginationtd">
+                      <div class="pagination" *ngFor="let page of pages">
+                        <a (click)="changeCurrentPage(page)" [ngClass]="{'active': page === clickedPage }">{{page}}</a>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
