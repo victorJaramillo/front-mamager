@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { ModalComponent } from 'src/app/modal/modal.component';
 import { UtilService } from 'src/app/services/util.service';
 
 
@@ -9,6 +10,7 @@ import { UtilService } from 'src/app/services/util.service';
   styleUrls: ['./body.component.scss']
 })
 export class BodyComponent implements OnInit {
+  modalRef: MdbModalRef<ModalComponent> | null = null;
 
   elements: any = {}
   dolar: any = {};
@@ -23,10 +25,12 @@ export class BodyComponent implements OnInit {
   selected_anime_names: any = [];
   queryParams:any = {};
 
+  endpoint: string = 'https://nodeapi.vjdev.xyz/api/v1/animeonline/scraping/configured';
+
 
   constructor(
-    private http: HttpClient,
     private util: UtilService,
+    private modalService: MdbModalService
   ) { }
 
   ngOnInit(): void {
@@ -36,7 +40,7 @@ export class BodyComponent implements OnInit {
   }
 
   private get_indicators() {
-    this.http.get('https://nodeapi.vjdev.xyz/api/v2/currconv/available/cl').subscribe((res) => {
+    this.util.httpGetRequest('https://nodeapi.vjdev.xyz/api/v2/currconv/available/cl').subscribe((res) => {
       this.elements = res;
       this.dolar = this.elements.dollar;
       this.uf = this.elements.uf;
@@ -45,30 +49,28 @@ export class BodyComponent implements OnInit {
     })
   }
 
-  private get_configured_anime_scraping() {
+  public get_configured_anime_scraping() {
     this.get_configured_anime(null)
   }
 
   public changeCurrentPage(value: any) {
     this.clickedPage = value;
     this.queryParams['currentPage'] = value
-    var queryString = Object.keys(this.queryParams).map(key => key + '=' + this.queryParams[key]).join('&');
+    var queryString = this.util.buildQueryString(this.queryParams)
     this.get_configured_anime(queryString)
   }
 
   private get_configured_anime(params: any) {
     const headers: any = { 'apikey': 'JDJiJDEwJFhTNmo2b2hzdVBJNU1oN3JtbGY3emVIbUtBNWdFalM2RkV3TGc0aTlQUzhVM1ZtdE9raHph' }
     if (!params) {
-      this.http.get('https://nodeapi.vjdev.xyz/api/v1/animeonline/scraping/configured', this.util.getHttpOptions(headers)).subscribe((res) => {
-        this.configured_animes = res;
-        for (let index = 0; index < this.configured_animes.totalPages; index++) {
-          console.log(this.configured_animes.totalPages);
-          
+      this.util.httpGetRequest(this.endpoint, headers).subscribe((x) => {
+        this.configured_animes =x
+        for (let index = 0; index < this.configured_animes.totalPages; index++) {        
           this.pages.push(index + 1)
         }
       })
     } else {
-      this.http.get(`https://nodeapi.vjdev.xyz/api/v1/animeonline/scraping/configured?${params}`, this.util.getHttpOptions(headers)).subscribe((res) => {
+      this.util.httpGetRequest(`${this.endpoint}?${params}`, headers).subscribe((res) => {
         this.configured_animes = res;
       })
     }
@@ -76,7 +78,8 @@ export class BodyComponent implements OnInit {
 
   get_anime_names() {
     const headers: any = { 'apikey': 'JDJiJDEwJFhTNmo2b2hzdVBJNU1oN3JtbGY3emVIbUtBNWdFalM2RkV3TGc0aTlQUzhVM1ZtdE9raHph' }
-    this.http.get('https://nodeapi.vjdev.xyz/api/v1/animeonline/scraping/configured?itemsPerPage=100', this.util.getHttpOptions(headers)).subscribe((res: any) => {
+    let queryString = this.util.buildQueryString({itemsPerPage:100})
+    this.util.httpGetRequest(`${this.endpoint}?${queryString}`, headers).subscribe((res: any) => {
       res.results.map((ele: any) => {
         if (!this.anime_names.includes(ele.title)) {
           this.anime_names.push(ele.title)
@@ -90,10 +93,10 @@ export class BodyComponent implements OnInit {
     this.queryParams['animeName']=item.target.value
     this.queryParams['currentPage'] = 1
     this.clickedPage = 1
-    var queryString = Object.keys(this.queryParams).map(key => key + '=' + this.queryParams[key]).join('&');
+    var queryString = this.util.buildQueryString(this.queryParams)
     this.pages = []
     
-    this.http.get(`https://nodeapi.vjdev.xyz/api/v1/animeonline/scraping/configured?${queryString}`, this.util.getHttpOptions(headers)).subscribe((res) => {
+    this.util.httpGetRequest(`${this.endpoint}?${queryString}`, headers).subscribe((res) => {
       this.configured_animes = res;
       for (let index = 0; index < this.configured_animes.totalPages; index++) {
         this.pages.push(index + 1)
@@ -101,4 +104,7 @@ export class BodyComponent implements OnInit {
     })
   }
 
+  public openModal(){
+    this.modalRef = this.modalService.open(ModalComponent)
+  }
 }
