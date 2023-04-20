@@ -20794,3 +20794,23 @@
     background-color: #ddd;
     color: black;
   }
+
+  .new-anime-style {
+    position:absolute;
+    right:5%;
+    top: 5%;
+  }
+  
+  .description-font-size {
+    font-size: 90%;
+  }
+  
+  .new-anime-style-button {
+    background: #00d25b;
+  }
+
+  .new-anime-style-button:hover {
+    background-color: #487e4a;
+    color: white;
+    cursor: pointer
+  }

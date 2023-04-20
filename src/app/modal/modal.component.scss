@@ -294,3 +294,8 @@ label {
     margin-left: calc(-.5 * var(--bs-gutter-x));
     margin-bottom: 1rem;
 }
+
+.error-http-message {
+    width: 100%;
+    color: #f96868;
+}

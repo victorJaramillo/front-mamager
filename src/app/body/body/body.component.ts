@@ -27,7 +27,8 @@ export class BodyComponent implements OnInit {
 
   endpoint: string = 'https://nodeapi.vjdev.xyz/api/v1/animeonline/scraping/configured';
 
-
+  spinnerActiveIndicator: boolean = false;
+  spinnerActiveAnime: boolean = false;
   constructor(
     private util: UtilService,
     private modalService: MdbModalService
@@ -46,6 +47,7 @@ export class BodyComponent implements OnInit {
       this.uf = this.elements.uf;
       this.indicatorStatus = true
       this.statusText = 'Up'
+      this.spinnerActiveIndicator = true
     })
   }
 
@@ -68,6 +70,7 @@ export class BodyComponent implements OnInit {
         for (let index = 0; index < this.configured_animes.totalPages; index++) {        
           this.pages.push(index + 1)
         }
+        this.spinnerActiveAnime = true
       })
     } else {
       this.util.httpGetRequest(`${this.endpoint}?${params}`, headers).subscribe((res) => {

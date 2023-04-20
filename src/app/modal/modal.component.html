@@ -6,42 +6,49 @@
     <div class="modal-body background_color_modal_body">
         <div class="grid-margin stretch-card">
             <div class="card div_style">
-              <div class="card-body">
-                <h4 class="card-title">New scraping</h4>
-                <p class="card-description"> Set up new scraping anime </p>
-                <form class="forms-sample">
-                  <div class="form-group row">
-                    <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Name</label>
-                    <div class="col-sm-9">
-                      <input #name type="text" class="custom_input_style" i
-                      d="exampleInputUsername2" placeholder="Anime name" [disabled]="spinnerActive">
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Link</label>
-                    <div class="col-sm-9">
-                      <input #link 
-                        type="text" 
-                        class="custom_input_style" 
-                        id="exampleInputPassword2" 
-                        placeholder="URL" [disabled]="spinnerActive">
-                        <p></p>
-                    </div>
-                  </div>
-                </form>
-              </div>
+                <div class="card-body">
+                    <h4 class="card-title">New scraping</h4>
+                    <p class="card-description"> Set up new scraping anime </p>
+                    <form class="forms-sample">
+                        <div class="form-group row">
+                            <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Name</label>
+                            <div class="col-sm-9">
+                                <input #name type="text" class="custom_input_style" i d="exampleInputUsername2"
+                                    placeholder="Anime name" [disabled]="spinnerActive">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="exampleInputPassword2" class="col-sm-3 col-form-label">Link</label>
+                            <div class="col-sm-9">
+                                <input #link type="text" class="custom_input_style" id="exampleInputPassword2"
+                                    placeholder="URL" [disabled]="spinnerActive">
+                                <p></p>
+                            </div>
+                        </div>
+                        <div class="form-group row" *ngIf="errorMessage">
+                            <label class="col-sm-3 col-form-label">Error</label>
+                            <div class="col-sm-9">
+                                <label for="exampleInputPassword2" class="col-sm-3 col-form-label error-http-message">*{{errorMessage}}*</label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-          </div>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="modalRef.close()" [disabled]="spinnerActive">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-square" viewBox="0 0 16 16">
+                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+              </svg>
             Close
         </button>
         <button class="btn btn-primary" mdbBtn color="primary" type="button" [disabled]="spinnerActive"
             (click)="saveChanges(name.value, link.value)">
-            <span [ngClass]="[spinnerActive ? 'spinner-border spinner-border-sm' : '']"
-             role="status" aria-hidden="true"></span>
-             {{spinnerActive ? 'Loading...': 'Save changes'}}
-          </button>
+            <span [ngClass]="[spinnerActive ? 'spinner-border spinner-border-sm' : '']" role="status"
+                aria-hidden="true"></span>
+            {{spinnerActive ? 'Loading...': 'Save changes'}}
+        </button>
     </div>
 </div>

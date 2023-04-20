@@ -11,6 +11,11 @@
               </p>
               <div class="table-responsive">
                 <table class="table">
+                  <div class="clearfix" *ngIf="!spinnerActiveIndicator">
+                    <div class="spinner-border float-right" role="status" >
+                      <span class="sr-only"></span>
+                    </div>
+                  </div>
                   <thead>
                     <tr>
                       <th>{{dolar.nombre}}</th>
@@ -40,7 +45,7 @@
             <div class="card-body">
               <h4 class="card-title">Animes</h4>
               <p class="card-description">
-                <code>Scraping configurados</code>
+                <code class="description-font-size">Scraping configurados</code>
               </p>
               <div class="form-group">
                 <tr>
@@ -66,10 +71,17 @@
                       <option [value]="item" *ngFor="let item of anime_names">{{item}}</option>
                     </select>
                   </th>
-                  <th style="padding: 10px;">
-                    <label class="card-title">Configure new anime</label>
+                </tr>
+                <tr>
+                  <th class="new-anime-style" style="padding: 10px;">
+                    <!-- <label class="card-title">Configure new anime</label> -->
                     <div class="input-group">
-                      <button class="badge btn btn-sm btn-primary" (click)="openModal()">New anime</button>
+                      <button class="badge btn btn-sm new-anime-style-button" 
+                        (click)="openModal()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                          <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                        </svg><br> New anime</button>
                     </div>
                   </th>
                 </tr>
@@ -91,6 +103,11 @@
                     </tr>
                   </thead>
                   <tbody *ngFor="let item of configured_animes.results">
+                    <div class="clearfix" *ngIf="!spinnerActiveAnime">
+                      <div class="spinner-border float-right" role="status" >
+                        <span class="sr-only"></span>
+                      </div>
+                    </div>
                     <tr>
                       <td><img src="/assets/icon.png"></td>
                       <td>{{item.title}}</td>

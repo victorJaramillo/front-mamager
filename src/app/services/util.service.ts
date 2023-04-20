@@ -17,6 +17,10 @@ export class UtilService {
   httpGetRequest(url:string, headers?:any) {
     return this.http.get(url, this.getHttpOptions(headers))
   }
+  
+  httpPostRequest(url:string, body:any, headers?:any) {
+    return this.http.post(url, body, this.getHttpOptions(headers))
+  }
 
   buildQueryString(queryParams:any) {
     return Object.keys(queryParams).map(key => key + '=' + queryParams[key]).join('&');

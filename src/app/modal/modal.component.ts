@@ -11,13 +11,31 @@ export class ModalComponent {
   constructor(public modalRef: MdbModalRef<ModalComponent>,
     private util: UtilService,
     ) {}
-  
+    apikeyHeader: any = { 'apikey': 'JDJiJDEwJFhTNmo2b2hzdVBJNU1oN3JtbGY3emVIbUtBNWdFalM2RkV3TGc0aTlQUzhVM1ZtdE9raHph' }
     spinnerActive:boolean = false;
+    errorMessage:any = null
+    newAnimeEndpoint: string = 'https://nodeapi.vjdev.xyz/api/v1/animeonline/scraping/new_scraping';
 
   saveChanges(name:string, link:string){
     this.spinnerActive = true
-    setTimeout(() => {
-      this.modalRef.close()
-    }, 1500);
+    let body= {title: name, url: link}
+    this.util.httpPostRequest(this.newAnimeEndpoint, body,this.apikeyHeader).subscribe((ele:any) => {
+      console.log('ELE => ',ele);
+      if(ele.status === 400){
+        this.errorMessage = ele.error.message
+      }
+      setTimeout(() => {
+        this.modalRef.close()
+      }, 1500);
+    },
+    err => {
+      if(err.status === 400){
+        this.spinnerActive = false
+        this.errorMessage = String(err.error.message).toUpperCase()
+      }
+      setTimeout(() => {
+        this.errorMessage = null
+      }, 3500);
+    })
   }
 }
