@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { ModalComponent } from 'src/app/modal/modal.component';
 import { UtilService } from 'src/app/services/util.service';
+import { environment as env } from 'src/environment/environment';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class BodyComponent implements OnInit {
   spinnerActiveAnime: boolean = false;
   constructor(
     private util: UtilService,
-    private modalService: MdbModalService
+    private modalService: MdbModalService,
   ) { }
 
   ngOnInit(): void {
@@ -63,7 +64,7 @@ export class BodyComponent implements OnInit {
   }
 
   private get_configured_anime(params: any) {
-    const headers: any = { 'apikey': 'JDJiJDEwJFhTNmo2b2hzdVBJNU1oN3JtbGY3emVIbUtBNWdFalM2RkV3TGc0aTlQUzhVM1ZtdE9raHph' }
+    const headers: any = { 'apikey': env.API_KEY }
     if (!params) {
       this.util.httpGetRequest(this.endpoint, headers).subscribe((x) => {
         this.configured_animes =x
@@ -80,7 +81,7 @@ export class BodyComponent implements OnInit {
   }
 
   get_anime_names() {
-    const headers: any = { 'apikey': 'JDJiJDEwJFhTNmo2b2hzdVBJNU1oN3JtbGY3emVIbUtBNWdFalM2RkV3TGc0aTlQUzhVM1ZtdE9raHph' }
+    const headers: any = { 'apikey': env.API_KEY }
     let queryString = this.util.buildQueryString({itemsPerPage:100})
     this.util.httpGetRequest(`${this.endpoint}?${queryString}`, headers).subscribe((res: any) => {
       res.results.map((ele: any) => {
@@ -92,7 +93,7 @@ export class BodyComponent implements OnInit {
   }
 
   public update(item: any) {
-    const headers: any = { 'apikey': 'JDJiJDEwJFhTNmo2b2hzdVBJNU1oN3JtbGY3emVIbUtBNWdFalM2RkV3TGc0aTlQUzhVM1ZtdE9raHph' }
+    const headers: any = { 'apikey': env.API_KEY }
     this.queryParams['animeName']=item.target.value
     this.queryParams['currentPage'] = 1
     this.clickedPage = 1
