@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
 import { UtilService } from 'src/app/services/util.service';
+import { environment as env } from 'src/environment/environment';
 
 @Component({
   selector: 'app-modal',
@@ -11,7 +12,7 @@ export class ModalComponent {
   constructor(public modalRef: MdbModalRef<ModalComponent>,
     private util: UtilService,
     ) {}
-    apikeyHeader: any = { 'apikey': 'JDJiJDEwJFhTNmo2b2hzdVBJNU1oN3JtbGY3emVIbUtBNWdFalM2RkV3TGc0aTlQUzhVM1ZtdE9raHph' }
+    apikeyHeader: any = { 'apikey': env.API_KEY }
     spinnerActive:boolean = false;
     errorMessage:any = null
     newAnimeEndpoint: string = 'https://nodeapi.vjdev.xyz/api/v1/animeonline/scraping/new_scraping';
