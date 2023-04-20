@@ -4,5 +4,12 @@ services:
     build: .
     container_name: front-manager
     restart: always
-    ports:
-      - 4200:80
+    expose:
+      - 4200
+    environment:
+      - VIRTUAL_HOST=manager.vjdev.xyz
+      - LETSENCRYPT_HOST=manager.vjdev.xyz
+      - VIRTUAL_PORT=4200
+networks:
+    external:
+      name: nginx-proxy      
