@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
 
+  visible = false;
+  showOption = false;
+
+  constructor() { }
+
+  toggleOption(): void {
+    this.showOption = !this.showOption;
+  }
 }

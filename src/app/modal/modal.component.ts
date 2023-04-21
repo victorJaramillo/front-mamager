@@ -21,7 +21,6 @@ export class ModalComponent {
     this.spinnerActive = true
     let body= {title: name, url: link}
     this.util.httpPostRequest(this.newAnimeEndpoint, body,this.apikeyHeader).subscribe((ele:any) => {
-      console.log('ELE => ',ele);
       if(ele.status === 400){
         this.errorMessage = ele.error.message
       }
