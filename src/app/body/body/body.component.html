@@ -112,12 +112,12 @@
                       <th>Status</th>
                     </tr>
                   </thead>
-                  <tbody *ngFor="let item of configured_animes.results">
-                    <div class="clearfix" *ngIf="!spinnerActiveAnime">
-                      <div class="spinner-border float-right" role="status">
-                        <span class="sr-only"></span>
-                      </div>
+                  <div class="clearfix" *ngIf="!spinnerActiveAnime">
+                    <div class="spinner-border float-right" role="status">
+                      <span class="sr-only"></span>
                     </div>
+                  </div>
+                  <tbody *ngFor="let item of configured_animes.results">
                     <tr>
                       <td><img src="/assets/icon.png"></td>
                       <td>{{item.title}}</td>

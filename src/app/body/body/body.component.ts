@@ -66,6 +66,7 @@ export class BodyComponent implements OnInit {
   private get_configured_anime(params: any) {
     const headers: any = { 'apikey': env.API_KEY }
     if (!params) {
+      this.spinnerActiveAnime = false
       this.util.httpGetRequest(this.endpoint, headers).subscribe((x) => {
         this.configured_animes =x
         for (let index = 0; index < this.configured_animes.totalPages; index++) {        
@@ -74,8 +75,10 @@ export class BodyComponent implements OnInit {
         this.spinnerActiveAnime = true
       })
     } else {
+      this.spinnerActiveAnime = false
       this.util.httpGetRequest(`${this.endpoint}?${params}`, headers).subscribe((res) => {
         this.configured_animes = res;
+        this.spinnerActiveAnime = true
       })
     }
   }
@@ -94,6 +97,7 @@ export class BodyComponent implements OnInit {
 
   public update(item: any) {
     const headers: any = { 'apikey': env.API_KEY }
+    this.spinnerActiveAnime = false
     this.queryParams['animeName']=item.target.value
     this.queryParams['currentPage'] = 1
     this.clickedPage = 1
@@ -105,6 +109,7 @@ export class BodyComponent implements OnInit {
       for (let index = 0; index < this.configured_animes.totalPages; index++) {
         this.pages.push(index + 1)
       }
+      this.spinnerActiveAnime = true
     })
   }
 
