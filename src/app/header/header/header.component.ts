@@ -19,6 +19,9 @@ export class HeaderComponent {
   }
 
   menus(): void {
-
+    setTimeout(() => {
+      console.log('kjhdsjkhdjkfhdjkfhk');
+      this.colapseMenu = false
+    }, 1500);
   }
 }

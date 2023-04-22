@@ -25,6 +25,7 @@ export class BodyComponent implements OnInit {
   anime_names: any = [];
   selected_anime_names: any = [];
   queryParams:any = {};
+  spinnerActive: Boolean = false
 
   endpoint: string = 'https://nodeapi.vjdev.xyz/api/v1/animeonline/scraping/configured';
 
@@ -115,5 +116,13 @@ export class BodyComponent implements OnInit {
 
   public openModal(){
     this.modalRef = this.modalService.open(ModalComponent)
+  }
+
+  public refreshAnimes() {
+    this.spinnerActive  = true
+    setTimeout(() => {
+      this.spinnerActive  = false
+      
+    }, 2000);
   }
 }
