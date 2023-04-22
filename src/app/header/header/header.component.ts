@@ -10,9 +10,15 @@ export class HeaderComponent {
   visible = false;
   showOption = false;
 
+  colapseMenu= true;
+
   constructor() { }
 
   toggleOption(): void {
     this.showOption = !this.showOption;
+  }
+
+  menus(): void {
+
   }
 }

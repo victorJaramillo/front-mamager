@@ -3,9 +3,7 @@ body {
 }
 
 @media (min-width: 991.98px) {
-    main {
-        padding-left: 240px;
-    }
+    
 }
 
 /* Sidebar */
@@ -71,6 +69,45 @@ body {
     border-color: #2c2e33;
 }
 
-h5, h4,h3, h2, p {
+h5,
+h4,
+h3,
+h2,
+p {
     color: #ffffff;
+}
+
+.container-scroller {
+    overflow: hidden;
+}
+
+.container-scroller {
+    display: flex;
+    position: relative;
+}
+
+
+.bi-arrow-down-short{
+	background-image: url("../../../assets/icons/arrow-down-short.svg");
+    background-repeat: repeat repeat;
+    background-position: center center;
+    background-size: contain;
+    width: 20px;
+    height: 20px;
+    background-color: currentColor;
+    border-radius: 50%;
+}
+.bi-arrow-up{
+	background-image: url("../../../assets/icons/arrow-up.svg");
+    background-repeat: repeat repeat;
+    background-position: center center;
+    background-size: contain;
+    width: 20px;
+    height: 20px;
+    background-color: currentColor;
+    border-radius: 50%;
+}
+
+i {
+    padding: 2px;
 }
