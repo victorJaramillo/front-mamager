@@ -16,8 +16,8 @@ export class BodyComponent implements OnInit {
   elements: any = {}
   dolar: any = {};
   uf: any = {};
-  pages: any = [];
-  clickedPage: any = 1;
+  pages: any;
+  clickedPage: any;
   indicatorStatus: Boolean = false;
   statusText: string = 'Down'
 
@@ -28,6 +28,7 @@ export class BodyComponent implements OnInit {
   spinnerActive: Boolean = false
 
   endpoint: string = 'https://nodeapi.vjdev.xyz/api/v1/animeonline/scraping/configured';
+  endpointFindNewChapters: string = 'https://nodeapi.vjdev.xyz/api/v1/animeonline/scraping'
 
   spinnerActiveIndicator: boolean = false;
   spinnerActiveAnime: boolean = false;
@@ -37,6 +38,8 @@ export class BodyComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.clickedPage= 1;
+    this.pages = []
     this.get_indicators()
     this.get_configured_anime_scraping()
     this.get_anime_names()
@@ -120,9 +123,10 @@ export class BodyComponent implements OnInit {
 
   public refreshAnimes() {
     this.spinnerActive  = true
-    setTimeout(() => {
+    const headers: any = { 'apikey': env.API_KEY }
+    this.util.httpGetRequest(this.endpointFindNewChapters, headers).subscribe((res) => {
+      this.ngOnInit()
       this.spinnerActive  = false
-      
-    }, 2000);
+    })
   }
 }
