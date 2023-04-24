@@ -58,7 +58,7 @@
               </p>
               <div class="collapse form-group" mdbCollapse #optionsCollapse="mdbCollapse">
                 <tr>
-                  <th style="width: 48%;">
+                  <!-- <th style="width: 48%;">
 
                     <label class="card-title">Search by name</label>
                     <div class="input-group">
@@ -72,13 +72,35 @@
                         </svg>
                       </button>
                     </div>
-                  </th>
-                  <th style="padding: 10px;">
+                  </th> -->
+                  <th>
                     <label class="card-title">Search by anime</label>
                     <select class="badge" style="width:100%; background-color: #2A3038;" (change)="update($event)">
                       <option value="">-------</option>
                       <option [value]="item" *ngFor="let item of anime_names">{{item}}</option>
                     </select>
+                  </th>
+                </tr>
+                <br>
+                <tr>
+                  <th>
+                    <label class="card-title">Filter by clicked</label>
+                    <br>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                      <label class="btn btn-secondary active">
+                        <input type="radio" name="options" id="option1" (click)="clickedFilter()" autocomplete="off"
+                          checked> All
+                      </label>
+                      <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="option2" (click)="clickedFilter(1)" autocomplete="off">
+                        Clicked
+                      </label>
+                      <label class="btn btn-secondary">
+                        <input type="radio" name="options" id="option3" (click)="clickedFilter(0)" autocomplete="off">
+                        Unclicked
+                      </label>
+                    </div>
+
                   </th>
                 </tr>
                 <tr>
@@ -93,12 +115,16 @@
                             d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
                         </svg><br> New anime
                       </button>
-                      <button class="badge btn btn-sm refresh-animes" (click)="refreshAnimes()" [disabled]="spinnerActive">
+                      <button class="badge btn btn-sm refresh-animes" (click)="refreshAnimes()"
+                        [disabled]="spinnerActive">
                         <span [ngClass]="[spinnerActive ? 'spinner-border spinner-border-sm' : '']" role="status"
                           aria-hidden="true">
-                          <svg *ngIf="!spinnerActive" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
-                            <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
-                            <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
+                          <svg *ngIf="!spinnerActive" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                            fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                            <path
+                              d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z" />
+                            <path fill-rule="evenodd"
+                              d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z" />
                           </svg>
                         </span>
                       </button>
@@ -119,7 +145,7 @@
                       <th>Chapter name</th>
                       <th>Season</th>
                       <th>Link</th>
-                      <th>Status</th>
+                      <th>Clicked</th>
                     </tr>
                   </thead>
                   <div class="clearfix" *ngIf="!spinnerActiveAnime">
@@ -133,8 +159,11 @@
                       <td>{{item.title}}</td>
                       <td>{{item.chapter_name | slice:0:20}}</td>
                       <td class="text-info">{{item.season}} <i class="mdi mdi-arrow-down"></i></td>
-                      <td><a href="{{item.chapter_link}}">{{item.chapter_link | slice:0:20}}</a></td>
-                      <td><label class="badge badge-success">Activo</label></td>
+                      <td><a #link (click)="clickedLink(item.chapter_link)"
+                          href="{{item.chapter_link}}">{{item.chapter_link | slice:0:20}}</a></td>
+                      <td><label
+                          [ngClass]="[item.clicked === 1 ? 'badge badge-success': 'badge badge-danger']">{{item.clicked
+                          === 1? true : false}}</label></td>
                     </tr>
                   </tbody>
                 </table>

@@ -32,6 +32,9 @@ export class BodyComponent implements OnInit {
 
   spinnerActiveIndicator: boolean = false;
   spinnerActiveAnime: boolean = false;
+
+  headers: any = { 'apikey': env.API_KEY }
+
   constructor(
     private util: UtilService,
     private modalService: MdbModalService,
@@ -68,10 +71,9 @@ export class BodyComponent implements OnInit {
   }
 
   private get_configured_anime(params: any) {
-    const headers: any = { 'apikey': env.API_KEY }
     if (!params) {
       this.spinnerActiveAnime = false
-      this.util.httpGetRequest(this.endpoint, headers).subscribe((x) => {
+      this.util.httpGetRequest(this.endpoint, this.headers).subscribe((x) => {
         this.configured_animes =x
         for (let index = 0; index < this.configured_animes.totalPages; index++) {        
           this.pages.push(index + 1)
@@ -80,7 +82,7 @@ export class BodyComponent implements OnInit {
       })
     } else {
       this.spinnerActiveAnime = false
-      this.util.httpGetRequest(`${this.endpoint}?${params}`, headers).subscribe((res) => {
+      this.util.httpGetRequest(`${this.endpoint}?${params}`, this.headers).subscribe((res) => {
         this.configured_animes = res;
         this.spinnerActiveAnime = true
       })
@@ -88,9 +90,8 @@ export class BodyComponent implements OnInit {
   }
 
   get_anime_names() {
-    const headers: any = { 'apikey': env.API_KEY }
     let queryString = this.util.buildQueryString({itemsPerPage:100})
-    this.util.httpGetRequest(`${this.endpoint}?${queryString}`, headers).subscribe((res: any) => {
+    this.util.httpGetRequest(`${this.endpoint}?${queryString}`, this.headers).subscribe((res: any) => {
       res.results.map((ele: any) => {
         if (!this.anime_names.includes(ele.title)) {
           this.anime_names.push(ele.title)
@@ -100,21 +101,24 @@ export class BodyComponent implements OnInit {
   }
 
   public update(item: any) {
-    const headers: any = { 'apikey': env.API_KEY }
     this.spinnerActiveAnime = false
     this.queryParams['animeName']=item.target.value
+    this.filteredUpdate();
+  }
+  
+  private filteredUpdate() {
     this.queryParams['currentPage'] = 1
     this.clickedPage = 1
-    var queryString = this.util.buildQueryString(this.queryParams)
-    this.pages = []
-    
-    this.util.httpGetRequest(`${this.endpoint}?${queryString}`, headers).subscribe((res) => {
+    var queryString = this.util.buildQueryString(this.queryParams);
+    this.pages = [];
+
+    this.util.httpGetRequest(`${this.endpoint}?${queryString}`, this.headers).subscribe((res) => {
       this.configured_animes = res;
       for (let index = 0; index < this.configured_animes.totalPages; index++) {
-        this.pages.push(index + 1)
+        this.pages.push(index + 1);
       }
-      this.spinnerActiveAnime = true
-    })
+      this.spinnerActiveAnime = true;
+    });
   }
 
   public openModal(){
@@ -123,10 +127,24 @@ export class BodyComponent implements OnInit {
 
   public refreshAnimes() {
     this.spinnerActive  = true
-    const headers: any = { 'apikey': env.API_KEY }
-    this.util.httpGetRequest(this.endpointFindNewChapters, headers).subscribe((res) => {
+    this.util.httpGetRequest(this.endpointFindNewChapters, this.headers).subscribe((res) => {
       this.ngOnInit()
       this.spinnerActive  = false
     })
   }
+
+  public clickedLink(link: any) {
+    var endpoint = this.endpointFindNewChapters  
+    endpoint += `/clicked-anime`
+    const body = {url: link}
+    this.util.httpPutRequest(endpoint, body, this.headers).subscribe((res) => {
+      this.filteredUpdate()
+    })
+  }
+
+  public clickedFilter(option?: any){
+    this.queryParams['clicked'] = (option === undefined ? '' : option)
+    this.filteredUpdate()
+  }
+
 }
