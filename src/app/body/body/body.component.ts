@@ -154,7 +154,7 @@ export class BodyComponent implements OnInit {
   public clickedFilter(checkedOption?: any){
     this.radioActive = checkedOption
     this.queryParams['clicked'] = (checkedOption === undefined ? '' : checkedOption)
-    this.filteredUpdate(false)
+    this.filteredUpdate(true)
   }
 
 }
