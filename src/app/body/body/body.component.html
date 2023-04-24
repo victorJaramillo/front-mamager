@@ -75,7 +75,7 @@
                   </th> -->
                   <th>
                     <label class="card-title">Search by anime</label>
-                    <select class="badge" style="width:100%; background-color: #2A3038;" (change)="update($event)">
+                    <select class="badge filter-by-anime"  (change)="update($event)">
                       <option value="">-------</option>
                       <option [value]="item" *ngFor="let item of anime_names">{{item}}</option>
                     </select>
@@ -86,9 +86,9 @@
                   <th>
                     <label class="card-title">Filter by clicked</label>
                     <br>
-                    <div class="btn-group btn-group-toggle" data-toggle="buttons"
+                    <div class="btn-group-click btn-group-toggle" data-toggle="buttons"
                     *ngFor="let ele of radioButtons">
-                      <label class="btn btn-secondary" [ngClass]="{'active': radioActive === ele.value}">
+                      <label class="btn btn-secondary-clicked" [ngClass]="{'active': radioActive === ele.value}">
                         <input type="radio" (click)="clickedFilter(ele.value)"
                           checked> {{ele.name}}
                       </label>
