@@ -86,18 +86,11 @@
                   <th>
                     <label class="card-title">Filter by clicked</label>
                     <br>
-                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                      <label class="btn btn-secondary active">
-                        <input type="radio" name="options" id="option1" (click)="clickedFilter()" autocomplete="off"
-                          checked> All
-                      </label>
-                      <label class="btn btn-secondary">
-                        <input type="radio" name="options" id="option2" (click)="clickedFilter(1)" autocomplete="off">
-                        Clicked
-                      </label>
-                      <label class="btn btn-secondary">
-                        <input type="radio" name="options" id="option3" (click)="clickedFilter(0)" autocomplete="off">
-                        Unclicked
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons"
+                    *ngFor="let ele of radioButtons">
+                      <label class="btn btn-secondary" [ngClass]="{'active': radioActive === ele.value}">
+                        <input type="radio" (click)="clickedFilter(ele.value)"
+                          checked> {{ele.name}}
                       </label>
                     </div>
 

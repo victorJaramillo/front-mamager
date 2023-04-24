@@ -35,14 +35,19 @@ export class BodyComponent implements OnInit {
 
   headers: any = { 'apikey': env.API_KEY }
 
+  radioButtons = [{name: 'All', value: ''}, {name: 'Clicked',value: 1} , {name:'Unclicked', value: 0}]
+  radioActive:any;
+  
   constructor(
     private util: UtilService,
     private modalService: MdbModalService,
-  ) { }
-
-  ngOnInit(): void {
+    ) { }
+    
+    ngOnInit(): void {
+    this.radioActive = '';
     this.clickedPage= 1;
     this.pages = []
+    this.queryParams = {}
     this.get_indicators()
     this.get_configured_anime_scraping()
     this.get_anime_names()
@@ -101,17 +106,19 @@ export class BodyComponent implements OnInit {
   }
 
   public update(item: any) {
-    this.spinnerActiveAnime = false
     this.queryParams['animeName']=item.target.value
-    this.filteredUpdate();
+    this.filteredUpdate(true);
   }
   
-  private filteredUpdate() {
-    this.queryParams['currentPage'] = 1
-    this.clickedPage = 1
+  private filteredUpdate(updatePage: boolean) {
+    this.spinnerActiveAnime = false;
+    if(updatePage){
+      this.queryParams['currentPage'] = 1
+      this.clickedPage = 1
+    }
     var queryString = this.util.buildQueryString(this.queryParams);
     this.pages = [];
-
+    
     this.util.httpGetRequest(`${this.endpoint}?${queryString}`, this.headers).subscribe((res) => {
       this.configured_animes = res;
       for (let index = 0; index < this.configured_animes.totalPages; index++) {
@@ -127,9 +134,11 @@ export class BodyComponent implements OnInit {
 
   public refreshAnimes() {
     this.spinnerActive  = true
+    this.spinnerActiveAnime = false;
     this.util.httpGetRequest(this.endpointFindNewChapters, this.headers).subscribe((res) => {
       this.ngOnInit()
       this.spinnerActive  = false
+      this.spinnerActiveAnime = false
     })
   }
 
@@ -138,13 +147,14 @@ export class BodyComponent implements OnInit {
     endpoint += `/clicked-anime`
     const body = {url: link}
     this.util.httpPutRequest(endpoint, body, this.headers).subscribe((res) => {
-      this.filteredUpdate()
+      this.filteredUpdate(false)
     })
   }
 
-  public clickedFilter(option?: any){
-    this.queryParams['clicked'] = (option === undefined ? '' : option)
-    this.filteredUpdate()
+  public clickedFilter(checkedOption?: any){
+    this.radioActive = checkedOption
+    this.queryParams['clicked'] = (checkedOption === undefined ? '' : checkedOption)
+    this.filteredUpdate(false)
   }
 
 }
