@@ -5,3 +5,9 @@ body {
     font-family: "Poppins", sans-serif;
   }
   // MDB SCSS
+  .input-group {
+    margin-left: 1px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+  }
+  @import "~bootstrap/dist/css/bootstrap.css" 

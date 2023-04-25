@@ -4,4 +4,11 @@ app-body {
     flex-direction: column;
 }
 
-@import "~bootstrap/dist/css/bootstrap.css" 
+
+
+.input-group-custom {
+    margin-left: 1px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+

@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { ModalComponent } from 'src/app/modal/modal.component';
@@ -24,7 +25,7 @@ export class BodyComponent implements OnInit {
   configured_animes: any = []
   anime_names: any = [];
   selected_anime_names: any = [];
-  queryParams:any = {};
+  queryParams: any = {};
   spinnerActive: Boolean = false
 
   endpoint: string = 'https://nodeapi.vjdev.xyz/api/v1/animeonline/scraping/configured';
@@ -35,17 +36,23 @@ export class BodyComponent implements OnInit {
 
   headers: any = { 'apikey': env.API_KEY }
 
-  radioButtons = [{name: 'All', value: ''}, {name: 'Clicked',value: 1} , {name:'Unclicked', value: 0}]
-  radioActive:any;
-  
+  radioButtons = [{ name: 'All', value: '' }, { name: 'Clicked', value: 1 }, { name: 'Unclicked', value: 0 }]
+  radioActive: any;
+  enaSeason: boolean = false;
+  seasons: any = []
+  seasons2: any = []
+  selectedSeason: any;
+
   constructor(
     private util: UtilService,
     private modalService: MdbModalService,
-    ) { }
-    
-    ngOnInit(): void {
+  ) { }
+
+  ngOnInit(): void {
+    this.seasons = []
+    this.enaSeason = false;
     this.radioActive = '';
-    this.clickedPage= 1;
+    this.clickedPage = 1;
     this.pages = []
     this.queryParams = {}
     this.get_indicators()
@@ -79,8 +86,8 @@ export class BodyComponent implements OnInit {
     if (!params) {
       this.spinnerActiveAnime = false
       this.util.httpGetRequest(this.endpoint, this.headers).subscribe((x) => {
-        this.configured_animes =x
-        for (let index = 0; index < this.configured_animes.totalPages; index++) {        
+        this.configured_animes = x
+        for (let index = 0; index < this.configured_animes.totalPages; index++) {
           this.pages.push(index + 1)
         }
         this.spinnerActiveAnime = true
@@ -95,30 +102,59 @@ export class BodyComponent implements OnInit {
   }
 
   get_anime_names() {
-    let queryString = this.util.buildQueryString({itemsPerPage:100})
+    let queryString = this.util.buildQueryString({ itemsPerPage: 100 })
     this.util.httpGetRequest(`${this.endpoint}?${queryString}`, this.headers).subscribe((res: any) => {
       res.results.map((ele: any) => {
         if (!this.anime_names.includes(ele.title)) {
           this.anime_names.push(ele.title)
         }
+
+        if(!this.seasons.includes(ele.title)){
+          const as = {"title": ele.title, "season": ele.season}
+          this.seasons.push(as)
+        }
       })
     })
+    
   }
 
   public update(item: any) {
-    this.queryParams['animeName']=item.target.value
+    item.target.value ? this.enaSeason = true : this.enaSeason = false
+    this.seasons2 = []
+    this.selectedSeason = ''
+    this.queryParams['animeName'] = item.target.value
+    delete this.queryParams['season']
+    this.seasons.map((ele:any) => {    
+      if(ele.title == item.target.value){
+        
+        if(!this.seasons2.includes(ele.season))
+        this.seasons2.push(ele.season)
+      }
+    })
     this.filteredUpdate(true);
   }
-  
+  public updateSeason(item: any) {
+    const season = item.target.value
+    season ? this.selectedSeason = season : ''
+    console.log(this.selectedSeason);
+    this.queryParams['season'] = this.selectedSeason
+    var queryString = this.util.buildQueryString(this.queryParams);
+    this.getElementsByQueryString(queryString)
+  }
+
   private filteredUpdate(updatePage: boolean) {
     this.spinnerActiveAnime = false;
-    if(updatePage){
+    if (updatePage) {
       this.queryParams['currentPage'] = 1
       this.clickedPage = 1
     }
     var queryString = this.util.buildQueryString(this.queryParams);
     this.pages = [];
-    
+
+    this.getElementsByQueryString(queryString);
+  }
+
+  private getElementsByQueryString(queryString: string) {
     this.util.httpGetRequest(`${this.endpoint}?${queryString}`, this.headers).subscribe((res) => {
       this.configured_animes = res;
       for (let index = 0; index < this.configured_animes.totalPages; index++) {
@@ -128,30 +164,32 @@ export class BodyComponent implements OnInit {
     });
   }
 
-  public openModal(){
+  public openModal() {
     this.modalRef = this.modalService.open(ModalComponent)
   }
 
   public refreshAnimes() {
-    this.spinnerActive  = true
+    this.spinnerActive = true
     this.spinnerActiveAnime = false;
     this.util.httpGetRequest(this.endpointFindNewChapters, this.headers).subscribe((res) => {
       this.ngOnInit()
-      this.spinnerActive  = false
+      this.spinnerActive = false
       this.spinnerActiveAnime = false
     })
   }
 
   public clickedLink(link: any) {
-    var endpoint = this.endpointFindNewChapters  
-    endpoint += `/clicked-anime`
-    const body = {url: link}
-    this.util.httpPutRequest(endpoint, body, this.headers).subscribe((res) => {
-      this.filteredUpdate(false)
-    })
+    if (!Boolean(link.clicked)) {
+      var endpoint = this.endpointFindNewChapters
+      endpoint += `/clicked-anime`
+      const body = { url: link.chapter_link }
+      this.util.httpPutRequest(endpoint, body, this.headers).subscribe((res) => {
+        this.filteredUpdate(false)
+      })
+    }
   }
 
-  public clickedFilter(checkedOption?: any){
+  public clickedFilter(checkedOption?: any) {
     this.radioActive = checkedOption
     this.queryParams['clicked'] = (checkedOption === undefined ? '' : checkedOption)
     this.filteredUpdate(true)

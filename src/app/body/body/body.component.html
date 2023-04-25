@@ -74,12 +74,23 @@
                     </div>
                   </th> -->
                   <th>
-                    <label class="card-title">Search by anime</label>
-                    <select class="badge filter-by-anime"  (change)="update($event)">
-                      <option value="">-------</option>
-                      <option [value]="item" *ngFor="let item of anime_names">{{item}}</option>
-                    </select>
+                    <div class="input-group-custom">
+                      <label class="card-title">Search by anime</label>
+                      <select #animeSelect class="badge filter-by-anime"  (change)="update($event)">
+                        <option value="">-------</option>
+                        <option [value]="item" *ngFor="let item of anime_names">{{item}}</option>
+                      </select>
+                    </div>
                   </th>
+                  <th>
+                    <div class="input-group-custom" *ngIf="enaSeason">
+                      <label class="card-title">Season</label>
+                      <select class="badge filter-by-anime" (change)="updateSeason($event)">
+                        <option value="">-------</option>
+                        <option [value]="item" *ngFor="let item of seasons2">{{item}}</option>
+                        </select>
+                      </div>
+                    </th>
                 </tr>
                 <br>
                 <tr>
@@ -88,13 +99,13 @@
                     <br>
                     <div class="btn-group-click btn-group-toggle" data-toggle="buttons"
                     *ngFor="let ele of radioButtons">
-                      <label class="btn btn-secondary-clicked" [ngClass]="{'active': radioActive === ele.value}">
-                        <input type="radio" (click)="clickedFilter(ele.value)"
-                          checked> {{ele.name}}
-                      </label>
-                    </div>
-
-                  </th>
+                    <label class="btn btn-secondary-clicked" [ngClass]="{'active': radioActive === ele.value}">
+                      <input type="radio" (click)="clickedFilter(ele.value)"
+                      checked> {{ele.name}}
+                    </label>
+                  </div>
+                  
+                </th>
                 </tr>
                 <tr>
                   <th class="new-anime-style">
@@ -152,7 +163,7 @@
                       <td>{{item.title}}</td>
                       <td>{{item.chapter_name | slice:0:20}}</td>
                       <td class="text-info">{{item.season}} <i class="mdi mdi-arrow-down"></i></td>
-                      <td><a #link (click)="clickedLink(item.chapter_link)"
+                      <td><a #link (click)="clickedLink(item)"
                           href="{{item.chapter_link}}">{{item.chapter_link | slice:0:20}}</a></td>
                       <td><label
                           [ngClass]="[item.clicked === 1 ? 'badge badge-success': 'badge badge-danger']">{{item.clicked
