@@ -135,26 +135,32 @@ export class BodyComponent implements OnInit {
   }
   public updateSeason(item: any) {
     const season = item.target.value
-    season ? this.selectedSeason = season : ''
-    console.log(this.selectedSeason);
-    this.queryParams['season'] = this.selectedSeason
+    
+    season ? this.queryParams['season'] = season : delete this.queryParams['season']
+
+    this.resetClickedAndCurrentPage();
+    
     var queryString = this.util.buildQueryString(this.queryParams);
     this.getElementsByQueryString(queryString)
   }
 
   private filteredUpdate(updatePage: boolean) {
-    this.spinnerActiveAnime = false;
     if (updatePage) {
-      this.queryParams['currentPage'] = 1
-      this.clickedPage = 1
+      this.resetClickedAndCurrentPage();
     }
     var queryString = this.util.buildQueryString(this.queryParams);
-    this.pages = [];
-
+    
     this.getElementsByQueryString(queryString);
+  }
+  
+  private resetClickedAndCurrentPage() {
+    this.queryParams['currentPage'] = 1;
+    this.clickedPage = 1;
   }
 
   private getElementsByQueryString(queryString: string) {
+    this.spinnerActiveAnime = false;
+    this.pages = [];
     this.util.httpGetRequest(`${this.endpoint}?${queryString}`, this.headers).subscribe((res) => {
       this.configured_animes = res;
       for (let index = 0; index < this.configured_animes.totalPages; index++) {
