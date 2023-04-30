@@ -1,0 +1,44 @@
+<div class="container-scroller">
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-lg-6 grid-margin stretch-card">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Indicadores</h4>
+              <p class="card-description"> <code>Valores Observados</code>
+              </p>
+              <div class="table-responsive">
+                <table class="table">
+                  <div class="clearfix" *ngIf="!spinnerActiveIndicator">
+                    <div class="spinner-border float-right" role="status">
+                      <span class="sr-only"></span>
+                    </div>
+                  </div>
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th></th>
+                      <th>Fecha</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td><label
+                          [ngClass]="[indicatorStatus ? 'badge badge-success': 'badge badge-warning']">{{statusText}}</label>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+            </div>
+        </div>
+    </div>
+</div>
