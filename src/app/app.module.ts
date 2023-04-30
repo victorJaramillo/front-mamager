@@ -25,6 +25,7 @@ import { MdbTooltipModule } from 'mdb-angular-ui-kit/tooltip';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceEnableComponent } from './admin/service-enable/service-enable.component';
+import { AnimeComponent } from './admin/anime/anime.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ServiceEnableComponent } from './admin/service-enable/service-enable.co
     FooterComponent,
     BodyComponent,
     ModalComponent,
-    ServiceEnableComponent
+    ServiceEnableComponent,
+    AnimeComponent
   ],
   imports: [
     BrowserModule,
