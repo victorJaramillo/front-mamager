@@ -8,11 +8,11 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Animes</h4>
-                            <p class="card-description"> 
+                            <p class="card-description">
                                 <code>Animes Configurados</code>
                             </p>
                             <div class="table-responsive">
-                                <table class="table table-hover">
+                                <table class="table">
                                     <div class="clearfix" *ngIf="!spinnerActiveIndicator">
                                         <div class="spinner-border float-right" role="status">
                                             <span class="sr-only"></span>
@@ -20,22 +20,36 @@
                                     </div>
                                     <thead>
                                         <tr>
-                                            <th></th>
                                             <th>Anime</th>
                                             <th>Url</th>
                                             <th>Status</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody *ngFor="let item of configuredAnime?.results">
                                         <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td><label
-                                                    [ngClass]="[indicatorStatus ? 'badge badge-success': 'badge badge-warning']">{{statusText}}</label>
+                                            <td>{{item.title}}</td>
+                                            <td>{{item.url}}</td>
+                                            <td>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" role="switch"
+                                                        id="flexSwitchCheckDefault" [checked]="item.enable === '1'" 
+                                                        (click)="activateDesactivate($event, item)">
+                                                </div>
+                                                <!-- <label
+                                                    [ngClass]="[item.enable == '1' ? 'badge badge-success': 'badge badge-warning']">{{statusText}}</label> -->
                                             </td>
                                         </tr>
                                     </tbody>
+                                </table>
+                                <table class="table table-hover">
+                                    <tr>
+                                        <td class="paginationtd">
+                                            <div class="pagination" *ngFor="let page of pages">
+                                                <a (click)="changeCurrentPage(page)"
+                                                    [ngClass]="{'active': page === clickedPage }">{{page}}</a>
+                                            </div>
+                                        </td>
+                                    </tr>
                                 </table>
                             </div>
                         </div>

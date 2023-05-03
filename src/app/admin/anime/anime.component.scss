@@ -422,3 +422,60 @@ h4 {
     --bs-table-accent-bg: var(--bs-table-hover-bg);
     color: var(--bs-table-hover-color);
 }
+
+.paginationth,
+.paginationtd {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+.paginationtr:hover {
+    background-color: #181b24;
+}
+
+.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.pagination {
+    display: inline-block;
+    background-color: #181b24;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.pagination a {
+    color: white;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+.pagination a.active {
+    background-color: #487e4a;
+    color: white;
+}
+
+.pagination a:hover:not(.active) {
+    background-color: #ddd;
+    color: black;
+}
+
+tbody,
+td,
+tfoot,
+th,
+thead,
+tr {
+    border-color: rgb(44 46 51);
+    border-style: solid;
+}
+
+.form-check-input:checked {
+    background-color: #4CAF50;
+    border-color: #1a9713;
+}
