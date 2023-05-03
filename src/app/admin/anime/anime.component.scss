@@ -417,3 +417,8 @@ code {
 h4 {
     font-size: 1.125rem;
 }
+
+.table-hover>tbody>tr:hover>* {
+    --bs-table-accent-bg: var(--bs-table-hover-bg);
+    color: var(--bs-table-hover-color);
+}
