@@ -11,6 +11,73 @@
                             <p class="card-description">
                                 <code>Animes Configurados</code>
                             </p>
+                            <p>
+                                <button class="badge btn btn-sm new-anime-style-button"
+                                    (click)="optionsCollapse.toggle()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-list" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                                    </svg>
+                                </button>
+                            </p>
+                            <div class="collapse form-group" mdbCollapse #optionsCollapse="mdbCollapse">
+                                <tr>
+                                    <th style="width: 48%;">
+
+                                        <label class="card-title">Search by name</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Search by name"
+                                                aria-label="Search by name" aria-describedby="basic-addon2">
+                                            <button class="badge btn btn-sm btn-primary " type="icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </th>
+
+                                </tr>
+                                <br>
+                                <tr>
+                                    <th class="new-anime-style">
+                                        <!-- <label class="card-title">Configure new anime</label> -->
+                                        <div class="input-group">
+                                            <button class="badge btn btn-sm new-anime-style-button"
+                                                (click)="openModal()">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                                    <path
+                                                        d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                                                </svg><br> New anime
+                                            </button>
+                                            <button class="badge btn btn-sm refresh-animes" (click)="refreshAnimes()"
+                                                [disabled]="spinnerActive">
+                                                <span
+                                                    [ngClass]="[spinnerActive ? 'spinner-border-custom spinner-border-sm-custom' : '']"
+                                                    role="status" aria-hidden="true">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="currentColor" class="bi bi-arrow-repeat"
+                                                        viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z" />
+                                                        <path fill-rule="evenodd"
+                                                            d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z" />
+                                                    </svg>
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <br>
+                                <tr>
+
+                                </tr>
+                            </div>
                             <div class="table-responsive">
                                 <table class="table">
                                     <div class="clearfix" *ngIf="!spinnerActiveIndicator">
@@ -32,7 +99,7 @@
                                             <td>
                                                 <div class="form-check form-switch">
                                                     <input class="form-check-input" type="checkbox" role="switch"
-                                                        id="flexSwitchCheckDefault" [checked]="item.enable === '1'" 
+                                                        id="flexSwitchCheckDefault" [checked]="item.enable === '1'"
                                                         (click)="activateDesactivate($event, item)">
                                                 </div>
                                                 <!-- <label

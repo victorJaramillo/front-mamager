@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { ModalComponent } from 'src/app/modal/modal.component';
 import { UtilService } from 'src/app/services/util.service';
 import { environment as env } from 'src/environment/environment';
 
@@ -8,6 +10,9 @@ import { environment as env } from 'src/environment/environment';
   styleUrls: ['./anime.component.scss']
 })
 export class AnimeComponent implements OnInit  {
+  modalRef: MdbModalRef<ModalComponent> | null = null;
+
+  spinnerActive: Boolean = false
   spinnerActiveIndicator: boolean = false;
   indicatorStatus: Boolean = false;
   statusText: string = 'Down'
@@ -18,8 +23,11 @@ export class AnimeComponent implements OnInit  {
 
   headers: any = { 'apikey': env.API_KEY }
 
+  endpointFindNewChapters: string = 'https://nodeapi.vjdev.xyz/api/v1/animeonline/scraping'
+
   constructor(
-    private util: UtilService
+    private util: UtilService,
+    private modalService: MdbModalService,
   ){}
 
 
@@ -47,9 +55,21 @@ export class AnimeComponent implements OnInit  {
 
   public activateDesactivate(event?: any, item?:any){
     console.log(item);
-    
     console.log(event.target.checked);
-    console.log(event);
     
+  }
+
+  public openModal() {
+    this.modalRef = this.modalService.open(ModalComponent)
+  }
+
+  public refreshAnimes() {
+    this.spinnerActive = true
+    this.spinnerActiveIndicator = false;
+    this.util.httpGetRequest(this.endpointFindNewChapters, this.headers).subscribe((res) => {
+      this.ngOnInit()
+      this.spinnerActive = false
+      this.spinnerActiveIndicator = false
+    })
   }
 }
