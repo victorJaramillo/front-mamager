@@ -26,6 +26,7 @@ import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceEnableComponent } from './admin/service-enable/service-enable.component';
 import { AnimeComponent } from './admin/anime/anime.component';
+import { ModalMessageComponent } from './modal/modal-message/modal-message.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { AnimeComponent } from './admin/anime/anime.component';
     BodyComponent,
     ModalComponent,
     ServiceEnableComponent,
-    AnimeComponent
+    AnimeComponent,
+    ModalMessageComponent
   ],
   imports: [
     BrowserModule,

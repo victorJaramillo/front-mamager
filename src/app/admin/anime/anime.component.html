@@ -94,7 +94,7 @@
                             </div>
                             <div class="table-responsive">
                                 <table class="table">
-                                    <div class="clearfix" *ngIf="!spinnerActiveIndicator">
+                                    <div class="clearfix" *ngIf="spinnerActiveIndicator">
                                         <div class="spinner-border float-right" role="status">
                                             <span class="sr-only"></span>
                                         </div>
@@ -109,7 +109,7 @@
                                     <tbody *ngFor="let item of configuredAnime?.results">
                                         <tr>
                                             <td>{{item.title}}</td>
-                                            <td>{{item.url}}</td>
+                                            <td> <a href="{{item.url}}"> {{item.url}}</a></td>
                                             <td>
                                                 <div class="form-check form-switch">
                                                     <input class="form-check-input" type="checkbox" role="switch"

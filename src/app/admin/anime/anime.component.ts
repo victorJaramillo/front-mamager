@@ -3,6 +3,8 @@ import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { ModalComponent } from 'src/app/modal/modal.component';
 import { UtilService } from 'src/app/services/util.service';
 import { environment as env } from 'src/environment/environment';
+import { ModalInfoService } from 'src/app/services/modal-info.service';
+import { ModalMessageComponent } from 'src/app/modal/modal-message/modal-message.component';
 
 @Component({
   selector: 'app-anime',
@@ -13,6 +15,7 @@ export class AnimeComponent implements OnInit  {
   @ViewChild('name') inputName:any;
 
   modalRef: MdbModalRef<ModalComponent> | null = null;
+  modalMessRef: MdbModalRef<ModalMessageComponent> | null = null;
 
   spinnerActive: Boolean = false
   spinnerActiveIndicator: boolean = false;
@@ -31,34 +34,44 @@ export class AnimeComponent implements OnInit  {
 
   endpointFindNewChapters: string = 'https://nodeapi.vjdev.xyz/api/v1/animeonline/scraping'
 
+  message:string="";
+
   constructor(
     private util: UtilService,
     private modalService: MdbModalService,
+    private modalInfoService: ModalInfoService
   ){}
 
 
   ngOnInit(): void {
-    this.pages = [];
     this.clickedPage = 1;
-
+    this.pages = []
+    this.spinnerActiveIndicator = true
     this.getConfiguredAnimes()
   }
 
   // < ---- HTTP ----- >
 
-  getConfiguredAnimes(params?:any) {
+  getConfiguredAnimes(params?:any, restartPages?:boolean) {
     if(!params){
       this.util.httpGetRequest(this.configured_anime_url, this.headers).subscribe( (res) => {
         this.configuredAnime = res
         for (let index = 0; index < this.configuredAnime.totalPages; index++) {
           this.pages.push(index + 1)
         }
-        this.spinnerActiveIndicator = true
+        this.spinnerActiveIndicator = false
       })
     }else {
       this.util.httpGetRequest(`${this.configured_anime_url}?${params}`, this.headers).subscribe( (res) => {
         this.configuredAnime = res
-        this.spinnerActiveIndicator = true
+        if(restartPages){
+          this.pages = []
+          for (let index = 0; index < this.configuredAnime.totalPages; index++) {
+            this.pages.push(index + 1)
+          }
+          this.clickedPage = this.configuredAnime.currentPage
+        }
+        this.spinnerActiveIndicator = false
       })
     }
     
@@ -67,7 +80,8 @@ export class AnimeComponent implements OnInit  {
   public activateDesactivate(event?: any, item?:any){   
     const body:any = {enable: event.target.checked}
     this.util.httpPutRequest(this.configured_anime_url+'/'+item.id, body, this.headers).subscribe( (res?:any) => {
-      alert(res.message)
+      this.modalInfoService.setProduct(res.message)
+      this.modalMessRef = this.modalService.open(ModalMessageComponent)
     })
   }
 
@@ -84,7 +98,7 @@ export class AnimeComponent implements OnInit  {
 
   public refreshAnimes() {
     this.spinnerActive = true
-    this.spinnerActiveIndicator = false;
+    this.spinnerActiveIndicator = true;
     this.util.httpGetRequest(this.endpointFindNewChapters, this.headers).subscribe((res) => {
       this.ngOnInit()
       this.spinnerActive = false
@@ -93,20 +107,28 @@ export class AnimeComponent implements OnInit  {
   }
 
   public changeCurrentPage(value: any) {
-    this.spinnerActiveIndicator = false
+    this.spinnerActiveIndicator = true
     this.clickedPage = value;
     this.queryParams.currentPage = value
     var queryString = this.util.buildQueryString(this.queryParams)
     this.getConfiguredAnimes(queryString)
   }
 
-  public filterByName() {    
+  public filterByName() {
+    this.spinnerActiveIndicator = true
     this.activeFilterName = true
+    this.queryParams = {}
+    this.queryParams.title = this.inputName.nativeElement.value
+    var queryString = this.util.buildQueryString(this.queryParams)
+    this.pages = []
+    this.getConfiguredAnimes(queryString, true)
   }
   
   public clearButton() {
+    this.spinnerActiveIndicator = true
     this.activeFilterName = false
     this.inputName.nativeElement.value = ""
+    this.ngOnInit()
   }
   
   // < --- FILTERS --- > 
