@@ -111,6 +111,7 @@ export class AnimeComponent implements OnInit  {
   public changeCurrentPage(value: any) {
     this.spinnerActiveIndicator = true
     this.clickedPage = value;
+    this.queryParams = {}
     this.queryParams.currentPage = value
     var queryString = this.util.buildQueryString(this.queryParams)
     this.getConfiguredAnimes(queryString)
