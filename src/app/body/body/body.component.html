@@ -58,25 +58,10 @@
               </p>
               <div class="collapse form-group" mdbCollapse #optionsCollapse="mdbCollapse">
                 <tr>
-                  <!-- <th style="width: 48%;">
-
-                    <label class="card-title">Search by name</label>
-                    <div class="input-group">
-                      <input type="text" class="form-control" placeholder="Search by name" aria-label="Search by name"
-                        aria-describedby="basic-addon2">
-                      <button class="badge btn btn-sm btn-primary " type="icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                          class="bi bi-search" viewBox="0 0 16 16">
-                          <path
-                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                        </svg>
-                      </button>
-                    </div>
-                  </th> -->
                   <th>
                     <div class="input-group-custom">
                       <label class="card-title">Search by anime</label>
-                      <select #animeSelect class="badge filter-by-anime"  (change)="update($event)">
+                      <select #animeSelect class="badge filter-by-anime" (change)="update($event)">
                         <option value="">-------</option>
                         <option [value]="item" *ngFor="let item of anime_names">{{item}}</option>
                       </select>
@@ -88,9 +73,9 @@
                       <select class="badge filter-by-anime" (change)="updateSeason($event)">
                         <option value="">-------</option>
                         <option [value]="item" *ngFor="let item of seasons2">{{item}}</option>
-                        </select>
-                      </div>
-                    </th>
+                      </select>
+                    </div>
+                  </th>
                 </tr>
                 <br>
                 <tr>
@@ -98,14 +83,13 @@
                     <label class="card-title">Filter by clicked</label>
                     <br>
                     <div class="btn-group-click btn-group-toggle" data-toggle="buttons"
-                    *ngFor="let ele of radioButtons">
-                    <label class="btn btn-secondary-clicked" [ngClass]="{'active': radioActive === ele.value}">
-                      <input type="radio" (click)="clickedFilter(ele.value)"
-                      checked> {{ele.name}}
-                    </label>
-                  </div>
-                  
-                </th>
+                      *ngFor="let ele of radioButtons">
+                      <label class="btn btn-secondary-clicked" [ngClass]="{'active': radioActive === ele.value}">
+                        <input type="radio" (click)="clickedFilter(ele.value)" checked> {{ele.name}}
+                      </label>
+                    </div>
+
+                  </th>
                 </tr>
                 <tr>
                   <th class="new-anime-style">
@@ -113,10 +97,10 @@
                     <div class="input-group">
                       <button class="badge btn btn-sm refresh-animes" (click)="refreshAnimes()"
                         [disabled]="spinnerActive">
-                        <span [ngClass]="[spinnerActive ? 'spinner-border-custom spinner-border-sm-custom' : '']" role="status"
-                          aria-hidden="true">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                            fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                        <span [ngClass]="[spinnerActive ? 'spinner-border-custom spinner-border-sm-custom' : '']"
+                          role="status" aria-hidden="true">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-arrow-repeat" viewBox="0 0 16 16">
                             <path
                               d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z" />
                             <path fill-rule="evenodd"
@@ -156,8 +140,8 @@
                       <td>{{item.title}}</td>
                       <td>{{item.chapter_name | slice:0:20}}</td>
                       <td class="text-info">{{item.season}} <i class="mdi mdi-arrow-down"></i></td>
-                      <td><a #link (click)="clickedLink(item)"
-                          href="{{item.chapter_link}}">{{item.chapter_link | slice:0:20}}</a></td>
+                      <td><a #link (click)="clickedLink(item)" href="{{item.chapter_link}}">{{item.chapter_link |
+                          slice:0:20}}</a></td>
                       <td><label
                           [ngClass]="[item.clicked === 1 ? 'badge badge-success': 'badge badge-danger']">{{item.clicked
                           === 1? true : false}}</label></td>

@@ -102,7 +102,7 @@ export class BodyComponent implements OnInit {
   }
 
   get_anime_names() {
-    let queryString = this.util.buildQueryString({ itemsPerPage: 100 })
+    let queryString = this.util.buildQueryString({ itemsPerPage: 1000 })
     this.util.httpGetRequest(`${this.endpoint}?${queryString}`, this.headers).subscribe((res: any) => {
       res.results.map((ele: any) => {
         if (!this.anime_names.includes(ele.title)) {
@@ -123,7 +123,7 @@ export class BodyComponent implements OnInit {
     this.seasons2 = []
     this.selectedSeason = ''
     this.queryParams['animeName'] = item.target.value
-    delete this.queryParams['season']
+    delete this.queryParams.season
     this.seasons.map((ele:any) => {    
       if(ele.title == item.target.value){
         
