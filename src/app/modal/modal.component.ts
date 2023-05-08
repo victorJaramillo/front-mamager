@@ -29,7 +29,7 @@ export class ModalComponent {
       }, 1500);
     },
     err => {
-      if(err.status === 400){
+      if(err.status === 400 || err.status === 401){
         this.spinnerActive = false
         this.errorMessage = String(err.error.message).toUpperCase()
       }

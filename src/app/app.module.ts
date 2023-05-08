@@ -27,6 +27,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceEnableComponent } from './admin/service-enable/service-enable.component';
 import { AnimeComponent } from './admin/anime/anime.component';
 import { ModalMessageComponent } from './modal/modal-message/modal-message.component';
+import { ApikeysComponent } from './admin/apikeys/apikeys.component';
+import { ModalNewApikeyComponent } from './modal/modal-new-apikey/modal-new-apikey.component';
+import { ModalApikeyDetailsComponent } from './modal/modal-apikey-details/modal-apikey-details.component';
+import { ModalApikeyValuesComponent } from './modal/modal-apikey-values/modal-apikey-values.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +41,11 @@ import { ModalMessageComponent } from './modal/modal-message/modal-message.compo
     ModalComponent,
     ServiceEnableComponent,
     AnimeComponent,
-    ModalMessageComponent
+    ModalMessageComponent,
+    ApikeysComponent,
+    ModalNewApikeyComponent,
+    ModalApikeyDetailsComponent,
+    ModalApikeyValuesComponent
   ],
   imports: [
     BrowserModule,
