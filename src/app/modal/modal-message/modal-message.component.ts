@@ -15,10 +15,15 @@ export class ModalMessageComponent implements OnInit {
     private modalInfoService: ModalInfoService,
     ) {}
     modalTitle:any
+    modalBody:any
 
     ngOnInit(): void {
       this.modalInfoService.selectedProduct$.subscribe((value) => {
         this.modalTitle = value
+      })
+
+      this.modalInfoService.selectedBody$.subscribe((val) => {
+        this.modalBody = val
       })
     }
 }

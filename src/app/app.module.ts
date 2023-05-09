@@ -31,6 +31,7 @@ import { ApikeysComponent } from './admin/apikeys/apikeys.component';
 import { ModalNewApikeyComponent } from './modal/modal-new-apikey/modal-new-apikey.component';
 import { ModalApikeyDetailsComponent } from './modal/modal-apikey-details/modal-apikey-details.component';
 import { ModalApikeyValuesComponent } from './modal/modal-apikey-values/modal-apikey-values.component';
+import { TodoListComponent } from './admin/todo-list/todo-list.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { ModalApikeyValuesComponent } from './modal/modal-apikey-values/modal-ap
     ApikeysComponent,
     ModalNewApikeyComponent,
     ModalApikeyDetailsComponent,
-    ModalApikeyValuesComponent
+    ModalApikeyValuesComponent,
+    TodoListComponent
   ],
   imports: [
     BrowserModule,

@@ -2,13 +2,130 @@
 // MDB SCSS
 
 body {
-    font-family: "Poppins", sans-serif;
-  }
-  // MDB SCSS
-  .input-group {
-    margin-left: 1px;
-    border-top-left-radius: 6px;
-    border-bottom-left-radius: 6px;
-  }
-  
-  @import "~bootstrap/dist/css/bootstrap.css" 
+  font-family: "Poppins", sans-serif;
+}
+
+// MDB SCSS
+.input-group {
+  margin-left: 1px;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+
+/* TODO LIST */
+.stretch-card>.card {
+  width: 100%;
+  min-width: 100%;
+}
+.card {
+  border-radius: 0.25rem;
+}
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  /* word-wrap: break-word; */
+  background-color: #191c24;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+}
+
+.add-items input[type=text] {
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+  width: 100%;
+  background: #544f4f;
+}
+
+.form-control, .asColorPicker-input, .dataTables_wrapper select, .jsgrid .jsgrid-table .jsgrid-filter-row input[type=text], .jsgrid .jsgrid-table .jsgrid-filter-row select, .jsgrid .jsgrid-table .jsgrid-filter-row input[type=number], .select2-container--default .select2-selection--single, .select2-container--default .select2-selection--single .select2-search__field, .typeahead, .tt-query, .tt-hint {
+  border: 1px solid #2c2e33;
+  height: calc(2.25rem + 2px);
+  font-weight: normal;
+  font-size: 0.875rem;
+  padding: 0.625rem 0.6875rem;
+  background-color: #2A3038;
+  border-radius: 2px;
+  color: #ffffff;
+}
+
+.btn-primary {
+  color: #000;
+  background-color: #0090e7;
+  border-color: #0090e7;
+}
+
+.btn-primary:not(.btn-light):not(.btn-secondary) {
+  color: #ffffff;
+}
+
+.list-wrapper ul li .form-check, .list-wrapper ul li .form-check .form-check-label {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 100%;
+  white-space: nowrap;
+}
+
+.form-check .form-check-label {
+  display: block;
+  padding-left: 0.625rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #6c7293;
+}
+
+.list-wrapper ul li .form-check {
+    max-width: 90%;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.form-check {
+  min-height: 18px;
+  padding-left: 1.25rem;
+}
+
+.list-wrapper input[type="checkbox"] {
+  margin-right: 15px;
+}
+
+.form-check .form-check-label input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-left: 0;
+  margin-top: 0;
+  z-index: 1;
+  cursor: pointer;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+
+.card .card-title {
+  color: #ffffff;
+  margin-bottom: 1.125rem;
+  text-transform: capitalize;
+}
+
+.nav {
+  --bs-nav-link-padding-x: 8rem;
+  --bs-nav-link-padding-y: 0.5rem;
+  --bs-nav-link-font-weight: ;
+  --bs-nav-link-color: #e0e0e0;
+  --bs-nav-link-hover-color: var(--bs-link-hover-color);
+  --bs-nav-link-disabled-color: #6c757d;
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+  background-color: #bcbcbc;
+}
+
+@import "~bootstrap/dist/css/bootstrap.css"

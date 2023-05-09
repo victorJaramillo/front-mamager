@@ -81,9 +81,18 @@ export class AnimeComponent implements OnInit  {
     this.spinnerActiveIndicator = true;
     const body:any = {enable: event.target.checked}
     this.util.httpPutRequest(this.configured_anime_url+'/'+item.id, body, this.headers).subscribe( (res?:any) => {
-      this.modalInfoService.setProduct(res.message)
+      this.modalInfoService.setProduct('INFO')
+      this.modalInfoService.setBody(res.message)
       this.modalMessRef = this.modalService.open(ModalMessageComponent)
       this.spinnerActiveIndicator = false;
+    }, err => {
+      this.modalInfoService.setProduct(`Error: ${err.status} - ${err.name}`)
+      this.modalInfoService.setBody(err.error.message)
+      event.target.checked ? event.target.checked = false : event.target.checked = true
+      this.spinnerActive = false
+      this.spinnerActiveIndicator = false
+      
+      this.modalMessRef = this.modalService.open(ModalMessageComponent)
     })
   }
 

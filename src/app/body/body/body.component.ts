@@ -1,7 +1,9 @@
 
 import { Component, OnInit } from '@angular/core';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { ModalMessageComponent } from 'src/app/modal/modal-message/modal-message.component';
 import { ModalComponent } from 'src/app/modal/modal.component';
+import { ModalInfoService } from 'src/app/services/modal-info.service';
 import { UtilService } from 'src/app/services/util.service';
 import { environment as env } from 'src/environment/environment';
 
@@ -13,6 +15,7 @@ import { environment as env } from 'src/environment/environment';
 })
 export class BodyComponent implements OnInit {
   modalRef: MdbModalRef<ModalComponent> | null = null;
+  modalMessRef: MdbModalRef<ModalMessageComponent> | null = null;
 
   elements: any = {}
   dolar: any = {};
@@ -46,6 +49,7 @@ export class BodyComponent implements OnInit {
   constructor(
     private util: UtilService,
     private modalService: MdbModalService,
+    private modalInfoService: ModalInfoService,
   ) { }
 
   ngOnInit(): void {
@@ -181,6 +185,13 @@ export class BodyComponent implements OnInit {
       this.ngOnInit()
       this.spinnerActive = false
       this.spinnerActiveAnime = false
+    }, err => {
+      this.modalInfoService.setProduct(`Error: ${err.status} - ${err.name}`)
+      this.modalInfoService.setBody(err.error.message)
+      this.spinnerActive = false
+      this.spinnerActiveAnime = true
+      
+      this.modalMessRef = this.modalService.open(ModalMessageComponent)
     })
   }
 
