@@ -17,9 +17,11 @@ body {
   width: 100%;
   min-width: 100%;
 }
+
 .card {
   border-radius: 0.25rem;
 }
+
 .card {
   position: relative;
   display: flex;
@@ -41,7 +43,17 @@ body {
   background: #544f4f;
 }
 
-.form-control, .asColorPicker-input, .dataTables_wrapper select, .jsgrid .jsgrid-table .jsgrid-filter-row input[type=text], .jsgrid .jsgrid-table .jsgrid-filter-row select, .jsgrid .jsgrid-table .jsgrid-filter-row input[type=number], .select2-container--default .select2-selection--single, .select2-container--default .select2-selection--single .select2-search__field, .typeahead, .tt-query, .tt-hint {
+.form-control,
+.asColorPicker-input,
+.dataTables_wrapper select,
+.jsgrid .jsgrid-table .jsgrid-filter-row input[type=text],
+.jsgrid .jsgrid-table .jsgrid-filter-row select,
+.jsgrid .jsgrid-table .jsgrid-filter-row input[type=number],
+.select2-container--default .select2-selection--single,
+.select2-container--default .select2-selection--single .select2-search__field,
+.typeahead,
+.tt-query,
+.tt-hint {
   border: 1px solid #2c2e33;
   height: calc(2.25rem + 2px);
   font-weight: normal;
@@ -62,7 +74,8 @@ body {
   color: #ffffff;
 }
 
-.list-wrapper ul li .form-check, .list-wrapper ul li .form-check .form-check-label {
+.list-wrapper ul li .form-check,
+.list-wrapper ul li .form-check .form-check-label {
   text-overflow: ellipsis;
   overflow: hidden;
   max-width: 100%;
@@ -78,9 +91,9 @@ body {
 }
 
 .list-wrapper ul li .form-check {
-    max-width: 90%;
-    margin-top: 0.25rem;
-    margin-bottom: 0.25rem;
+  max-width: 90%;
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
 }
 
 .form-check {
@@ -106,7 +119,7 @@ body {
 
 .card .card-title {
   color: #ffffff;
-  margin-bottom: 1.125rem;
+  margin-bottom: 0.125rem;
   text-transform: capitalize;
 }
 
@@ -124,7 +137,24 @@ body {
   list-style: none;
 }
 
-.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+@media only screen and (max-width: 390px) {
+  .nav {
+    --bs-nav-link-padding-x: 1rem;
+    --bs-nav-link-padding-y: 0.5rem;
+    --bs-nav-link-font-weight: ;
+    --bs-nav-link-color: #e0e0e0;
+    --bs-nav-link-hover-color: var(--bs-link-hover-color);
+    --bs-nav-link-disabled-color: #6c757d;
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+  }
+}
+
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
   background-color: #bcbcbc;
 }
 
