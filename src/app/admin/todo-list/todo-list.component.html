@@ -6,8 +6,8 @@
           <div class="card-body p-5">
             <h4 class="card-title">To do list</h4>
             <div class="add-items d-flex">
-              <input type="text" class="form-control" placeholder="enter task..">
-              <button class="add btn btn-primary todo-list-add-btn">Add</button>
+              <input type="text" class="form-control" placeholder="Enter task.." #task_name>
+              <button class="add btn btn-primary todo-list-add-btn" (click)="newTask()">Add</button>
             </div>
             <form class="d-flex justify-content-center align-items-center mb-4">
             </form>
@@ -33,14 +33,12 @@
             <div class="tab-content" id="ex1-content">
               <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel"
                 aria-labelledby="ex1-tab-1">
-                <ul class="list-group mb-0">
-                  <li class="list-group-item d-flex align-items-center border-0 mb-2 rounded li-completed">
-                    <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." checked />
-                    <s>Cras justo odio</s>
-                  </li>
-                  <li class="list-group-item d-flex align-items-center border-0 mb-2 rounded li-completed">
-                    <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." checked/>
-                    <s> Vestibulum at eros</s>
+                <ul class="list-group mb-0" *ngFor="let task of chores_to_do?.results">
+                  <li class="list-group-item d-flex align-items-center border-0 mb-2 rounded " [ngClass]="{'li-completed': task.status === 1}"
+                  (click)="changeTaskStatus($event, task)">
+                    <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." [checked]="task.status == 1" />
+                    <s *ngIf="task.status === 1">{{task.task_name}}</s>
+                    <a *ngIf="task.status !== 1">{{task.task_name}}</a>
                   </li>
                 </ul>
               </div>
