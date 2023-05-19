@@ -2,12 +2,35 @@
     <h5 class="modal-title" id="exampleModalLabel">Values</h5>
 </div>
 <div class="modal-body">
-    <form>
-        <div class="form-group">
-            <label for="formGroupExampleInput">APIKey Name</label>
-            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
-        </div>
-    </form>
+    <mdb-carousel #carousel [interval]="500000">
+        <mdb-carousel-item *ngFor="let item of arr_images">
+          <img
+            src="{{item.image}}"
+            class="d-block w-100"
+            alt="..."
+          />
+        </mdb-carousel-item>
+      </mdb-carousel>
+      <br>
+      <div>
+        <nav aria-label="...">
+            <ul class="pagination justify-content-center">
+              <li class="page-item" >
+              <!-- [ngClass]="{'disabled': image_active == 0}"> -->
+                <a class="page-link" tabindex="-1" aria-disabled="true"
+                (click)="prevPage(carousel)">Previous</a>
+              </li>
+              <!-- <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item active" aria-current="page">
+                <a class="page-link" href="#">2 <span class="visually-hidden">(current)</span></a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+              <li class="page-item">
+                <a class="page-link" (click)="nextPage(carousel)">Next</a>
+              </li>
+            </ul>
+          </nav>
+      </div>
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-primary" (click)="modalRef.close()">

@@ -14,4 +14,10 @@ export class ModalApikeyDetailsComponent {
     private util: UtilService,
     private modalInfoService: ModalInfoService,
   ) { }
+
+  showOption = false;
+
+  toggleOption(): void {
+    this.showOption = !this.showOption;
+  }
 }

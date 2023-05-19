@@ -2,12 +2,29 @@
     <h5 class="modal-title" id="exampleModalLabel">Details</h5>
 </div>
 <div class="modal-body">
-    <form>
+    <div class="input-group mb-3">
+  <div mdbDropdown class="dropdown">
+    <button mdbDropdownToggle class="btn btn-primary dropdown-toggle" type="button" aria-expanded="false">
+      Dropdown
+    </button>
+    <ul mdbDropdownMenu class="dropdown-menu">
+      <li><a class="dropdown-item" href="#">Action</a></li>
+      <li><a class="dropdown-item" href="#">Another action</a></li>
+      <li><a class="dropdown-item" href="#">Something else here</a></li>
+      <li>
+        <hr class="dropdown-divider" />
+      </li>
+      <li><a class="dropdown-item" href="#">Separated link</a></li>
+    </ul>
+  </div>
+  <input type="text" class="form-control" aria-label="Text input with dropdown button" />
+</div>
+    <!-- <form>
         <div class="form-group">
             <label for="formGroupExampleInput">APIKey Name</label>
             <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
         </div>
-    </form>
+    </form> -->
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-primary" (click)="modalRef.close()">
