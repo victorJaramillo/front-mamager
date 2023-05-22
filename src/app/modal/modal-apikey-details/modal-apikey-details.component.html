@@ -3,29 +3,25 @@
 </div>
 <div class="modal-body">
     <div class="input-group mb-3">
-  <div mdbDropdown class="dropdown">
-    <button mdbDropdownToggle class="btn btn-primary dropdown-toggle" type="button" aria-expanded="false">
-      Dropdown
-    </button>
-    <ul mdbDropdownMenu class="dropdown-menu">
-      <li><a class="dropdown-item" href="#">Action</a></li>
-      <li><a class="dropdown-item" href="#">Another action</a></li>
-      <li><a class="dropdown-item" href="#">Something else here</a></li>
-      <li>
-        <hr class="dropdown-divider" />
-      </li>
-      <li><a class="dropdown-item" href="#">Separated link</a></li>
-    </ul>
-  </div>
-  <input type="text" class="form-control" aria-label="Text input with dropdown button" />
-</div>
-    <!-- <form>
-        <div class="form-group">
-            <label for="formGroupExampleInput">APIKey Name</label>
-            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+        <div class="dropdown">
+            <button type="button" class="btn btn-secondary dropdown-toggle" mdbDropdownToggle aria-expanded="false"
+                (click)="toggleOption()"> Action
+            </button>
+            <ul class="dropdown-menu dropdown-menu-dark" [ngClass]="{'show' : showOption}">
+                <li><a class="dropdown-item">Action</a></li>
+                <li><a class="dropdown-item">Another action</a></li>
+                <li><a class="dropdown-item">Something else here</a></li>
+                <li>
+                    <hr class="dropdown-divider" />
+                </li>
+                <li><a class="dropdown-item">Separated link</a></li>
+            </ul>
         </div>
-    </form> -->
+        <input type="text" class="form-control" aria-label="Text input with dropdown button" />
+    </div>
 </div>
+
+
 <div class="modal-footer">
     <button type="button" class="btn btn-primary" (click)="modalRef.close()">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sd-card-fill"

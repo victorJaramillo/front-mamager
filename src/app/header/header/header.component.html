@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <h3>Front Manager</h3>
-  <button class="navbar-toggler" type="button" (click)="basicCollapse.toggle()"
+  <button class="navbar-toggler" type="button" (click)="toggleBurger()"
     aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -15,7 +15,7 @@
           Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" (click)="[pricingCollapse.toggle(), menus()]">
+        <a class="nav-link" (click)="toggle()">
           Admin
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-down" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M3.5 6a.5.5 0 0 0-.5.5v8a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-8a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 1 0-1h2A1.5 1.5 0 0 1 14 6.5v8a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 14.5v-8A1.5 1.5 0 0 1 3.5 5h2a.5.5 0 0 1 0 1h-2z"/>
@@ -23,7 +23,7 @@
           </svg>
         </a>
       </li>
-      <li class="nav-item dropdown">
+      <!-- <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false" (click)="toggleOption()">
           Dropdown link
@@ -33,29 +33,29 @@
           <a class="dropdown-item" routerLink="/admin/animes">Animes</a>
           <a class="dropdown-item" href="#">Something else here</a>
         </div>
-      </li>
+      </li> -->
     </ul>
   </div>
 </nav>
 
 <div class="collapse" id="navbarToggleExternalContent" 
-mdbCollapse #pricingCollapse="mdbCollapse">
+mdbCollapse #collapse="mdbCollapse">
   <div class="bg-dark p-4">
     <h5 class="text-white h4">Administrative Menu</h5>
     <span class="text-muted">Only admin is allowed.</span>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link text-white" routerLink="/admin/enabled-services">Enabeled Services</a>
+          <a class="nav-link text-white" (click)="navigateEnableServices()">Enabeled Services</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" routerLink="/admin/animes">Animes</a>
+          <a class="nav-link text-white" (click)="navigateAnime()">Animes</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" routerLink="admin/apikeys">API Keys</a>
+          <a class="nav-link text-white" (click)="navigateApiKey()">API Keys</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" routerLink="admin/todo-list">Todo List</a>
+          <a class="nav-link text-white" (click)="navigateTodoList()">Todo List</a>
         </li>
       </ul>
     </nav>
