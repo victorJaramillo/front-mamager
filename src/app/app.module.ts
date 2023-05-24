@@ -32,6 +32,7 @@ import { ModalNewApikeyComponent } from './modal/modal-new-apikey/modal-new-apik
 import { ModalApikeyDetailsComponent } from './modal/modal-apikey-details/modal-apikey-details.component';
 import { ModalApikeyValuesComponent } from './modal/modal-apikey-values/modal-apikey-values.component';
 import { TodoListComponent } from './admin/todo-list/todo-list.component';
+import { ChartsComponent } from './admin/charts/charts.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { TodoListComponent } from './admin/todo-list/todo-list.component';
     ModalNewApikeyComponent,
     ModalApikeyDetailsComponent,
     ModalApikeyValuesComponent,
-    TodoListComponent
+    TodoListComponent,
+    ChartsComponent
   ],
   imports: [
     BrowserModule,

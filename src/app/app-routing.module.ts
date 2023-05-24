@@ -5,6 +5,7 @@ import { ServiceEnableComponent } from './admin/service-enable/service-enable.co
 import { BodyComponent } from './body/body/body.component';
 import { ApikeysComponent } from './admin/apikeys/apikeys.component';
 import { TodoListComponent } from './admin/todo-list/todo-list.component';
+import { ChartsComponent } from './admin/charts/charts.component';
 
 const routes: Routes = [
   { path: '', component: BodyComponent },
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'admin/animes', component: AnimeComponent },
   { path: 'admin/apikeys', component: ApikeysComponent },
   { path: 'admin/todo-list', component: TodoListComponent },
+  { path: 'admin/charts', component: ChartsComponent },
   
 ];
 

@@ -57,6 +57,14 @@ export class HeaderComponent {
       this.basicCollapse.hide()
     }, 500);
   }
+  
+  navigateCharts() {
+    this.router.navigate(['/admin/charts']);
+    setTimeout(() => {
+      this.dropDown.hide()
+      this.basicCollapse.hide()
+    }, 500);
+  }
 
 
 }
