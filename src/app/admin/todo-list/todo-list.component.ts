@@ -16,6 +16,8 @@ export class TodoListComponent implements OnInit  {
   modalMessRef: MdbModalRef<ModalMessageComponent> | null = null;
 
   chores_to_do:any = []
+  tab_active:any=0
+  tabs:any=[{id:0, tab_name:'All'}, {id:1, tab_name:'Active'}, {id:2, tab_name:'Completed'}]
   
   ngOnInit(): void {
     this.getChoresTodo()
@@ -61,6 +63,10 @@ export class TodoListComponent implements OnInit  {
       this.modalInfoService.setBody(err.message)
       this.modalMessRef = this.modalService.open(ModalMessageComponent)
     })
+  }
+
+  change_tab(id:any) {
+    this.tab_active = id
   }
 
 }
