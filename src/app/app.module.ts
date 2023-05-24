@@ -34,6 +34,7 @@ import { ModalApikeyValuesComponent } from './modal/modal-apikey-values/modal-ap
 import { TodoListComponent } from './admin/todo-list/todo-list.component';
 import { ChartsComponent } from './admin/charts/charts.component';
 
+import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { ChartsComponent } from './admin/charts/charts.component';
     MdbTabsModule,
     MdbTooltipModule,
     MdbValidationModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    CanvasJSAngularChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
