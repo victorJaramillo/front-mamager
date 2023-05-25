@@ -61,7 +61,7 @@ export class ChartsComponent implements OnInit{
       }
       
       const dollar_chart = {
-        type: "line",
+        type: "column",
         showInLegend: true,
         name: "Dollar",
         xValueFormatString: "MMM DD, YYYY",
