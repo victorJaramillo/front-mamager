@@ -11,6 +11,7 @@ export class ChartsComponent implements OnInit{
 
   headers = {apikey: env.API_KEY}
   chartOptionsValues:any = {}
+  chartUfValues:any = {}
   constructor(
     private util: UtilService,
   )
@@ -18,6 +19,7 @@ export class ChartsComponent implements OnInit{
 
   ngOnInit(): void {
     this.getDollarValues()
+    this.getUfValues()
   }
 
   chartOptions = {
@@ -49,22 +51,14 @@ export class ChartsComponent implements OnInit{
       for (const key of res) {
         dataPointsArr.push({x: new Date(key.fecha), y: key.valor})
       }
-      const uf_chart = {
-        type: "line",
-        showInLegend: true,
-        name: "UF",
-        xValueFormatString: "MMM DD, YYYY",
-        dataPoints: dataPointsArr
-      }
-      
+
       const dollar_chart = {
         type: "column",
         showInLegend: true,
         name: "Dollar",
         dataPoints: dataPointsArr
       }
-
-
+      
       const dollarData:any = {
         animationEnabled: true,
         theme: "dark2",
@@ -85,8 +79,47 @@ export class ChartsComponent implements OnInit{
       }
 
       dollarData.data.push(dollar_chart)
-      // dollarData.data.push(uf_chart)
       this.chartOptionsValues = dollarData
+    }, (err) => {
+
+    })
+  }
+  getUfValues() {
+    this.util.httpGetRequest(env.CHARTS_UF_ENDPOINT, this.headers).subscribe((res:any) => {
+      var dataPointsArr = []
+      for (const key of res) {
+        dataPointsArr.push({x: new Date(key.fecha), y: key.valor})
+      }
+      
+      const dollar_chart = {
+        type: "column",
+        showInLegend: true,
+        name: "Dollar",
+        dataPoints: dataPointsArr
+      }
+
+
+      const ufData:any = {
+        animationEnabled: true,
+        theme: "dark2",
+        title: {
+          text: "UF value last 7 days"
+        },
+        axisX: {
+          valueFormatString: "D MMM"
+        },
+        axisY: {
+          title: "Values"
+        },
+        toolTip: {
+          shared: false
+        },
+        legend: {},
+        data: []
+      }
+
+      ufData.data.push(dollar_chart)
+      this.chartUfValues = ufData
     }, (err) => {
 
     })

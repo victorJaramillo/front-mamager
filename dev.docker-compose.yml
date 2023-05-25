@@ -4,5 +4,12 @@ services:
     build: .
     container_name: front-manager
     restart: always
-    ports:
-      - "4200:80"
+    expose:
+      - "80"
+    environment:
+      - VIRTUAL_HOST=manager.local.xyz
+      - VIRTUAL_PORT=80
+networks:
+  default:
+    external:
+      name: nginx-proxy
