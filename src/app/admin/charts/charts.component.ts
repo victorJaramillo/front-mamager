@@ -17,9 +17,7 @@ export class ChartsComponent implements OnInit{
   {}
 
   ngOnInit(): void {
-    console.log('this.chartOptionsValues => ',this.getDollarValues());
-    
-    
+    this.getDollarValues()
   }
 
   chartOptions = {
@@ -46,8 +44,7 @@ export class ChartsComponent implements OnInit{
   }
 
   getDollarValues() {
-    var response = {}
-    this.util.httpGetRequest('https://nodeapi.vjdev.xyz/api/v2/currconv/available/dollar/chart', this.headers).subscribe((res:any) => {
+    this.util.httpGetRequest(env.CHARTS_ENDPOINT, this.headers).subscribe((res:any) => {
       var dataPointsArr = []
       for (const key of res) {
         dataPointsArr.push({x: new Date(key.fecha), y: key.valor})
@@ -64,7 +61,6 @@ export class ChartsComponent implements OnInit{
         type: "column",
         showInLegend: true,
         name: "Dollar",
-        xValueFormatString: "MMM DD, YYYY",
         dataPoints: dataPointsArr
       }
 
@@ -73,16 +69,16 @@ export class ChartsComponent implements OnInit{
         animationEnabled: true,
         theme: "dark2",
         title: {
-          text: "Dollar and UF values"
+          text: "Dollar value last 7 days"
         },
         axisX: {
           valueFormatString: "D MMM"
         },
         axisY: {
-          title: "Prices"
+          title: "Values"
         },
         toolTip: {
-          shared: true
+          shared: false
         },
         legend: {},
         data: []
