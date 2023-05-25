@@ -11,5 +11,6 @@ services:
       - LETSENCRYPT_HOST=manager.vjdev.xyz
       - VIRTUAL_PORT=80
 networks:
+  default:
     external:
       name: nginx-proxy
