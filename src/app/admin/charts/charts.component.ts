@@ -11,6 +11,7 @@ export class ChartsComponent implements OnInit{
 
   headers = {apikey: env.API_KEY}
   chartOptionsValues:any = {}
+  chartDollar30Days:any = {}
   chartUfValues:any = {}
   constructor(
     private util: UtilService,
@@ -20,6 +21,7 @@ export class ChartsComponent implements OnInit{
   ngOnInit(): void {
     this.getDollarValues()
     this.getUfValues()
+    this.getDollarLastMonthValues()
   }
 
   chartOptions = {
@@ -84,6 +86,45 @@ export class ChartsComponent implements OnInit{
 
     })
   }
+  getDollarLastMonthValues() {
+    this.util.httpGetRequest(`${env.CHARTS_ENDPOINT}/last/month`, this.headers).subscribe((res:any) => {
+      var dataPointsArr = []
+      for (const key of res) {
+        dataPointsArr.push({x: new Date(key.fecha), y: key.valor})
+      }
+
+      const dollar_chart = {
+        type: "splineArea",
+        showInLegend: true,
+        name: "Dollar",
+        dataPoints: dataPointsArr
+      }
+      
+      const dollarData:any = {
+        animationEnabled: true,
+        theme: "dark2",
+        title: {
+          text: "Dollar value last 30 days"
+        },
+        axisX: {
+          valueFormatString: "D MMM"
+        },
+        axisY: {
+          title: "Values"
+        },
+        toolTip: {
+          shared: false
+        },
+        legend: {},
+        data: []
+      }
+
+      dollarData.data.push(dollar_chart)
+      this.chartDollar30Days = dollarData
+    }, (err) => {
+
+    })
+  }
   getUfValues() {
     this.util.httpGetRequest(env.CHARTS_UF_ENDPOINT, this.headers).subscribe((res:any) => {
       var dataPointsArr = []
@@ -91,7 +132,7 @@ export class ChartsComponent implements OnInit{
         dataPointsArr.push({x: new Date(key.fecha), y: key.valor})
       }
       
-      const dollar_chart = {
+      const uf_chart = {
         type: "column",
         showInLegend: true,
         name: "Dollar",
@@ -118,7 +159,7 @@ export class ChartsComponent implements OnInit{
         data: []
       }
 
-      ufData.data.push(dollar_chart)
+      ufData.data.push(uf_chart)
       this.chartUfValues = ufData
     }, (err) => {
 
