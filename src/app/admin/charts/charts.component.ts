@@ -94,7 +94,7 @@ export class ChartsComponent implements OnInit{
       }
 
       const dollar_chart = {
-        type: "splineArea",
+        type: "area",
         showInLegend: true,
         name: "Dollar",
         dataPoints: dataPointsArr
@@ -135,7 +135,7 @@ export class ChartsComponent implements OnInit{
       const uf_chart = {
         type: "column",
         showInLegend: true,
-        name: "Dollar",
+        name: "UF",
         dataPoints: dataPointsArr
       }
 
