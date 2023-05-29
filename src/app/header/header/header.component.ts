@@ -13,6 +13,9 @@ export class HeaderComponent implements OnInit{
 
   @ViewChild('collapse') dropDownAdminMenu!: MdbCollapseDirective;
   @ViewChild('basicCollapse') basicCollapse!: MdbCollapseDirective;
+
+  @ViewChild('username') username:any;
+  @ViewChild('password') password:any;
   
   animationState = 'out';
 
@@ -25,6 +28,7 @@ export class HeaderComponent implements OnInit{
 
   innerWidth:any
   mobileMode:boolean=false
+  spinnerActive=false
 
   constructor(private router: Router) { }
   ngOnInit(): void {
@@ -57,6 +61,18 @@ export class HeaderComponent implements OnInit{
   showDropdownLoginMenu() {
     this.showLogin = true;    
     this.animationState = this.animationState === 'out' ? 'in' : 'out';
+  }
+
+  signin(){
+    console.log(this.username.nativeElement.value);
+    console.log(this.username);
+    console.log(this.password.nativeElement.value);
+    this.spinnerActive = true
+    setTimeout(() => {
+      this.spinnerActive = false
+      this.showLogin = false
+    }, 2000);
+    
   }
 
   navigateHome() {

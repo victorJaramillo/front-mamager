@@ -43,9 +43,8 @@
         </div>
       </li> -->
     </ul>
-    <form class="form-inline login-button" *ngIf="enable_login_button">
       <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
-      <div class="dropdown-options">
+      <div class="dropdown-options login-button"*ngIf="enable_login_button">
         <button
           class="btn btn-outline-success my-2 my-sm-0 dropdown-toggle"
           type="button"
@@ -55,15 +54,15 @@
           Login
         </button>
         <div class="dropdown-menu div-login-menu" [@slideInOut]="animationState" [ngClass]="{'show': showLogin}">
-          <form class="px-4 py-3">
+          <div class="px-4 py-3 div-user-pass">
             <!-- Email input -->
             <div class="form-outline mb-4">
-              <input type="email" id="form1Example1" class="form-control" />
+              <input type="email" id="form1Example1" class="form-control" #username required/>
               <label class="form-label" for="form1Example1">Email address</label>
             </div>
             <!-- Password input -->
             <div class="form-outline mb-4">
-              <input type="password" id="form1Example2" class="form-control" />
+              <input type="password" id="form1Example2" class="form-control" #password required/>
               <label class="form-label" for="form1Example2">Password</label>
             </div>
             <!-- 2 column grid layout for inline styling -->
@@ -87,14 +86,21 @@
               </div>
             </div>
             <!-- Submit button -->
-            <button type="submit" class="btn btn-primary btn-block">Sign in</button>
-          </form>
+            <button (click)="signin()" class="btn btn-primary" mdbBtn type="button"  [disabled]="spinnerActive">
+              <div class="clearfix" *ngIf="spinnerActive">
+                <div class="spinner-border float-right" role="status">
+                  <span class="sr-only">
+                  </span>
+                </div>
+              </div>
+              {{spinnerActive ? 'Loading...':'Sign in'}}
+            </button>
+          </div>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#">New around here? Sign up</a>
           <a class="dropdown-item" href="#">Forgot password?</a>
         </div>
       </div>
-    </form>
   </div>
 </nav>
 

@@ -47,7 +47,8 @@
         <button class="btn btn-primary" mdbBtn color="primary" type="button" [disabled]="spinnerActive"
             (click)="saveChanges(name.value, link.value)">
             <span [ngClass]="[spinnerActive ? 'spinner-border spinner-border-sm' : '']" role="status"
-                aria-hidden="true"></span>
+                aria-hidden="true">
+            </span>
             {{spinnerActive ? 'Loading...': 'Save changes'}}
         </button>
     </div>
