@@ -11,34 +11,30 @@ import { SlideInOutAnimation } from 'src/app/animation';
 })
 export class HeaderComponent implements OnInit{
 
-  @ViewChild('collapse') dropDown!: MdbCollapseDirective;
+  @ViewChild('collapse') dropDownAdminMenu!: MdbCollapseDirective;
   @ViewChild('basicCollapse') basicCollapse!: MdbCollapseDirective;
   
   animationState = 'out';
 
   visible = false;
   showOption = false;
-  showLogin = false;
+  showLogin = true;
+  enable_login_button = true;
 
   colapseMenu= true;
 
-  enable_login_button:boolean= false
   innerWidth:any
+  mobileMode:boolean=false
 
   constructor(private router: Router) { }
   ngOnInit(): void {
-    if(this.innerWidth != 390){
-      this.enable_login_button = true
-    }
+    this.onResize()
   }
+
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.innerWidth = window.innerWidth;
-    if(this.innerWidth == 390){
-      this.enable_login_button = false
-    }else if(this.innerWidth != 390){
-      this.enable_login_button = true
-    }
+    this.mobileMode = (this.innerWidth == 390)
   }
 
   toggleOption(): void {
@@ -46,27 +42,36 @@ export class HeaderComponent implements OnInit{
     this.animationState = this.animationState === 'out' ? 'in' : 'out';
   }
 
-  toggle(){
-    this.dropDown.toggle()
+  toggleAdminMenu(){
+    this.dropDownAdminMenu.toggle()
   }
 
-  login_btn() {
-    this.enable_login_button = !this.enable_login_button
-  }
   toggleBurger(){
-    this.login_btn()
-    this.basicCollapse.toggle()
+    this.basicCollapse.toggle()    
+    if(this.mobileMode){
+      if(this.basicCollapse.collapsed){this.enable_login_button = false}
+      else {this.enable_login_button = true}
+    }
   }
 
   showDropdownLoginMenu() {
-    this.showLogin = !this.showLogin
+    this.showLogin = true;    
     this.animationState = this.animationState === 'out' ? 'in' : 'out';
   }
 
+  navigateHome() {
+    this.router.navigate(['/']);
+    setTimeout(() => {
+      this.dropDownAdminMenu.hide()
+      this.basicCollapse.hide()
+      this.onResize()
+    }, 500);
+
+  }
   navigateEnableServices() {
     this.router.navigate(['/admin/enabled-services']);
     setTimeout(() => {
-      this.dropDown.hide()
+      this.dropDownAdminMenu.hide()
       this.basicCollapse.hide()
       this.onResize()
     }, 500);
@@ -74,7 +79,7 @@ export class HeaderComponent implements OnInit{
   navigateApiKey() {
     this.router.navigate(['/admin/apikeys']);
     setTimeout(() => {
-      this.dropDown.hide()
+      this.dropDownAdminMenu.hide()
       this.basicCollapse.hide()
       this.onResize()
     }, 500);
@@ -82,7 +87,7 @@ export class HeaderComponent implements OnInit{
   navigateAnime() {
     this.router.navigate(['/admin/animes']);
     setTimeout(() => {
-      this.dropDown.hide()
+      this.dropDownAdminMenu.hide()
       this.basicCollapse.hide()
       this.onResize()
     }, 500);
@@ -90,7 +95,7 @@ export class HeaderComponent implements OnInit{
   navigateTodoList() {
     this.router.navigate(['/admin/todo-list']);
     setTimeout(() => {
-      this.dropDown.hide()
+      this.dropDownAdminMenu.hide()
       this.basicCollapse.hide()
       this.onResize()
     }, 500);
@@ -99,11 +104,9 @@ export class HeaderComponent implements OnInit{
   navigateCharts() {
     this.router.navigate(['/admin/charts']);
     setTimeout(() => {
-      this.dropDown.hide()
+      this.dropDownAdminMenu.hide()
       this.basicCollapse.hide()
       this.onResize()
     }, 500);
   }
-
-
 }
