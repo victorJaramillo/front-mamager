@@ -1,18 +1,20 @@
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MdbCollapseDirective } from 'mdb-angular-ui-kit/collapse';
 import { Router } from '@angular/router';
-import { MdbDropdownDirective } from 'mdb-angular-ui-kit/dropdown';
+import { SlideInOutAnimation } from 'src/app/animation';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  animations: [SlideInOutAnimation]
 })
 export class HeaderComponent implements OnInit{
 
   @ViewChild('collapse') dropDown!: MdbCollapseDirective;
   @ViewChild('basicCollapse') basicCollapse!: MdbCollapseDirective;
-  @ViewChild('dropdownMenu') dropDownMenu!: MdbDropdownDirective;
+  
+  animationState = 'out';
 
   visible = false;
   showOption = false;
@@ -41,7 +43,9 @@ export class HeaderComponent implements OnInit{
 
   toggleOption(): void {
     this.showOption = !this.showOption;
+    this.animationState = this.animationState === 'out' ? 'in' : 'out';
   }
+
   toggle(){
     this.dropDown.toggle()
   }
@@ -56,6 +60,7 @@ export class HeaderComponent implements OnInit{
 
   showDropdownLoginMenu() {
     this.showLogin = !this.showLogin
+    this.animationState = this.animationState === 'out' ? 'in' : 'out';
   }
 
   navigateEnableServices() {

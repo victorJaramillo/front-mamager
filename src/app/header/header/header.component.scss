@@ -18,3 +18,9 @@ h3 {
 .div-login-menu {
     right: 0px;
 }
+
+.form-login-menu>form {
+    // visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s linear;
+}

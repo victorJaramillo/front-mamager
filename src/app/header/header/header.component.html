@@ -36,7 +36,7 @@
           aria-haspopup="true" aria-expanded="false" (click)="toggleOption()">
           Dropdown link
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" [ngClass]="{'show' : showOption}">
+        <div class="dropdown-menu" [@slideInOut]="animationState" aria-labelledby="navbarDropdownMenuLink" [ngClass]="{'show' : showOption}">
           <a class="dropdown-item" routerLink="/admin/enabled-services">Enabeled Services</a>
           <a class="dropdown-item" routerLink="/admin/animes">Animes</a>
           <a class="dropdown-item" href="#">Something else here</a>
@@ -45,16 +45,16 @@
     </ul>
     <form class="form-inline login-button" *ngIf="enable_login_button">
       <!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
-      <div class="dropdown">
+      <div class="dropdown-options">
         <button
           class="btn btn-outline-success my-2 my-sm-0 dropdown-toggle"
           type="button"
-          (click)="showDropdownLoginMenu()"
+          (click)="[showDropdownLoginMenu()]"
           aria-expanded="false"
         >
           Dropdown form
         </button>
-        <div class="dropdown-menu div-login-menu" [ngClass]="{'show': showLogin}">
+        <div class="dropdown-menu div-login-menu" [@slideInOut]="animationState" [ngClass]="{'show': showLogin}">
           <form class="px-4 py-3">
             <!-- Email input -->
             <div class="form-outline mb-4">
