@@ -48,10 +48,20 @@
         <button
           class="btn btn-outline-success my-2 my-sm-0 dropdown-toggle"
           type="button"
-          (click)="[showDropdownLoginMenu()]"
+          (click)="showDropdownLoginMenu()"
           aria-expanded="false"
+          *ngIf="!isLogedIn"
         >
           Login
+        </button>
+        <button
+          class="btn btn-outline-success my-2 my-sm-0"
+          type="button"
+          (click)="logOut()"
+          aria-expanded="false"
+          *ngIf="isLogedIn"
+        >
+          Logout
         </button>
         <div class="dropdown-menu div-login-menu" [@slideInOut]="animationState" [ngClass]="{'show': showLogin}">
           <div class="px-4 py-3 div-user-pass">

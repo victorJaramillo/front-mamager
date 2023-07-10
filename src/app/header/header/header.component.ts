@@ -29,6 +29,7 @@ export class HeaderComponent implements OnInit{
   innerWidth:any
   mobileMode:boolean=false
   spinnerActive=false
+  isLogedIn= false
 
   constructor(private router: Router) { }
   ngOnInit(): void {
@@ -64,15 +65,19 @@ export class HeaderComponent implements OnInit{
   }
 
   signin(){
-    console.log(this.username.nativeElement.value);
-    console.log(this.username);
-    console.log(this.password.nativeElement.value);
+    const username = this.username.nativeElement.value
+    const password = this.password.nativeElement.value
     this.spinnerActive = true
     setTimeout(() => {
+      this.isLogedIn = true
       this.spinnerActive = false
       this.showLogin = false
     }, 2000);
     
+  }
+
+  logOut() {
+    this.isLogedIn = false
   }
 
   navigateHome() {
