@@ -44,6 +44,7 @@ export class TodoListComponent implements OnInit  {
     for(let pageIndex=0; pageIndex<this.chores_to_do.totalPages; pageIndex++){
       this.pages.push(pageIndex+1)
     }
+    this.clickedPage=1
   }
   
   getChoresTodoByPage(page: any) {
