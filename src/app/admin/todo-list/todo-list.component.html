@@ -1,47 +1,58 @@
-  <div class="container py-5 h-100">
+<div class="container py-5 h-100">
+  <div class="table-responsive">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col col-xl-10">
-
-        <div class="card">
-          <div class="card-body p-5">
-            <h4 class="card-title">To do list</h4>
-            <div class="add-items d-flex">
-              <input type="text" class="form-control" placeholder="Enter task.." #task_name>
-              <button class="add btn btn-primary todo-list-add-btn" (click)="newTask()">Add</button>
-            </div>
-            <form class="d-flex justify-content-center align-items-center mb-4">
-            </form>
-
-            <!-- Tabs navs -->
-            <ul class="nav nav-tabs mb-4 pb-2" id="ex1" role="tablist">
-              <li class="nav-item" role="presentation" *ngFor="let tab of tabs">
-                <a class="nav-link" 
-                [ngClass]="{'active': tab_active == tab.id}" 
-                id="ex1-tab-1" data-mdb-toggle="tab" role="tab" (click)="change_tab(tab.id)"
-                  aria-controls="ex1-tabs-1" aria-selected="true">{{tab.tab_name}}</a>
-              </li>
-            </ul>
-            <!-- Tabs navs -->
-
-            <!-- Tabs content -->
-            <div class="tab-content" id="ex1-content">
-              <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel"
-                aria-labelledby="ex1-tab-1">
-                <ul class="list-group mb-0" *ngFor="let task of chores_to_do?.results">
-                  <li class="list-group-item d-flex align-items-center border-0 mb-2 rounded " [ngClass]="{'li-completed': task.status === 1}"
-                  (click)="changeTaskStatus($event, task)">
-                    <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." [checked]="task.status == 1" />
-                    <s *ngIf="task.status === 1">{{task.task_name}}</s>
-                    <a *ngIf="task.status !== 1">{{task.task_name}}</a>
-                  </li>
-                </ul>
+        <table class="table">
+          <div class="card">
+            <div class="card-body p-5">
+              <h4 class="card-title">To do list</h4>
+              <div class="add-items d-flex">
+                <input type="text" class="form-control" placeholder="Enter task.." #task_name>
+                <button class="add btn btn-primary todo-list-add-btn" (click)="newTask()">Add</button>
               </div>
-            </div>
-            <!-- Tabs content -->
+              <form class="d-flex justify-content-center align-items-center mb-4">
+              </form>
 
+              <!-- Tabs navs -->
+              <ul class="nav nav-tabs mb-4 pb-2" id="ex1" role="tablist">
+                <li class="nav-item" role="presentation" *ngFor="let tab of tabs">
+                  <a class="nav-link" [ngClass]="{'active': tab_active == tab.id}" id="ex1-tab-1" data-mdb-toggle="tab"
+                    role="tab" (click)="change_tab(tab.id)" aria-controls="ex1-tabs-1"
+                    aria-selected="true">{{tab.tab_name}}</a>
+                </li>
+              </ul>
+              <!-- Tabs navs -->
+
+              <!-- Tabs content -->
+              <div class="tab-content" id="ex1-content">
+                <div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel" aria-labelledby="ex1-tab-1">
+                  <ul class="list-group mb-0" *ngFor="let task of chores_to_do?.results">
+                    <li class="list-group-item d-flex align-items-center border-0 mb-2 rounded "
+                      [ngClass]="{'li-completed': task.status === 1}" (click)="changeTaskStatus($event, task)">
+                      <input class="form-check-input me-2" type="checkbox" value="" aria-label="..."
+                        [checked]="task.status == 1" />
+                      <s *ngIf="task.status === 1">{{task.task_name}}</s>
+                      <a *ngIf="task.status !== 1">{{task.task_name}}</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <!-- Tabs content -->
+
+            </div>
           </div>
-        </div>
+        </table>
+        <table class="table table-hover">
+          <tr>
+            <td class="paginationtd">
+              <div class="pagination" *ngFor="let page of pages">
+                <a (click)="changeCurrentPage(page)" [ngClass]="{'active': page === clickedPage }">{{page}}</a>
+              </div>
+            </td>
+          </tr>
+        </table>
 
       </div>
     </div>
   </div>
+</div>

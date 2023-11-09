@@ -14,7 +14,7 @@ export class TodoListComponent implements OnInit  {
   @ViewChild('task_name') inputName:any;
 
   modalMessRef: MdbModalRef<ModalMessageComponent> | null = null;
-  clickedPage:any = 0
+  clickedPage:any = 1
   pages: any = [];
 
   chores_to_do:any = []
@@ -35,10 +35,22 @@ export class TodoListComponent implements OnInit  {
   getChoresTodo() {
     this.util.httpGetRequest(env.TO_DO_URL, this.headers).subscribe((res) => {
       this.chores_to_do =res      
-      for(let pageIndex=0; pageIndex<this.chores_to_do.totalPages; pageIndex++){
-        this.pages.push(pageIndex+1)
-      }
+      this.resetPages()
     })
+  }
+
+  resetPages() {
+    this.pages= []
+    for(let pageIndex=0; pageIndex<this.chores_to_do.totalPages; pageIndex++){
+      this.pages.push(pageIndex+1)
+    }
+  }
+  
+  getChoresTodoByPage(page: any) {
+    this.util.httpGetRequest(`${env.TO_DO_URL}?currentPage=${page}`, this.headers).subscribe((res) => {
+      this.chores_to_do =res
+    })
+    this.clickedPage = page
   }
 
   newTask() {
@@ -58,7 +70,7 @@ export class TodoListComponent implements OnInit  {
       this.modalInfoService.setProduct(res.message)
       this.modalInfoService.setBody(res.message)
       this.modalMessRef = this.modalService.open(ModalMessageComponent)
-      this.getChoresTodo()
+      this.getChoresTodoByPage(this.clickedPage)
     }, err => {
       console.log(err);
       
@@ -69,17 +81,16 @@ export class TodoListComponent implements OnInit  {
   }
 
   change_tab(id:any) {
-    this.tab_active = id
-    console.log(this.tab_active);
-    
+    this.tab_active = id    
     this.util.httpGetRequest(`${env.TO_DO_URL}?status=${this.tab_active}`, this.headers).subscribe((res: any) => {
       this.chores_to_do =res
+      this.resetPages()
     })
   }
 
   changeCurrentPage(id:any) {
     console.log(id);
-    
+    this.getChoresTodoByPage(id)
   }
 
 }

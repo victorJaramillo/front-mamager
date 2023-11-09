@@ -7,3 +7,126 @@
     margin-bottom: 1.125rem;
     text-transform: capitalize;
 }
+
+.paginationth,
+.paginationtd {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Tables */
+.table,
+.jsgrid .jsgrid-table {
+  margin-bottom: 0;
+  color: #6c7293;
+}
+
+.table thead th,
+.jsgrid .jsgrid-table thead th {
+  border-top: 0;
+  border-bottom-width: 1px;
+  font-weight: 500;
+  color: #6c7293;
+}
+
+.table thead th i,
+.jsgrid .jsgrid-table thead th i {
+  margin-left: 0.325rem;
+}
+
+.table th,
+.jsgrid .jsgrid-table th,
+.table td,
+.jsgrid .jsgrid-table td {
+  vertical-align: middle;
+  font-size: 0.875rem;
+  line-height: 1;
+  white-space: nowrap;
+  padding: 0.9375rem;
+}
+
+.table th img,
+.jsgrid .jsgrid-table th img,
+.table td img,
+.jsgrid .jsgrid-table td img {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+}
+
+.table th .badge,
+.jsgrid .jsgrid-table th .badge,
+.table td .badge,
+.jsgrid .jsgrid-table td .badge {
+  margin-bottom: 0;
+}
+
+.table.table-borderless,
+.jsgrid .table-borderless.jsgrid-table {
+  border: none;
+}
+
+.table.table-borderless tr,
+.jsgrid .table-borderless.jsgrid-table tr,
+.table.table-borderless td,
+.jsgrid .table-borderless.jsgrid-table td,
+.table.table-borderless th,
+.jsgrid .table-borderless.jsgrid-table th {
+  border: none;
+}
+
+.table .table-dark,
+.jsgrid .jsgrid-table .table-dark {
+  background: #212529;
+}
+
+.table.table-contextual,
+.jsgrid .table-contextual.jsgrid-table {
+  color: #ffffff;
+}
+
+.table> :not(:last-child)> :last-child>*,
+.jsgrid .jsgrid-table> :not(:last-child)> :last-child>*,
+.jsgrid .jsgrid-table> :not(:last-child)> :last-child>* {
+  border-bottom-color: #2c2e33;
+}
+
+.table> :not(:first-child),
+.jsgrid .jsgrid-table> :not(:first-child),
+.jsgrid .jsgrid-table> :not(:first-child) {
+  border-top: none;
+}
+
+
+.pagination {
+    display: inline-block;
+    background-color: #181b24;
+    padding: 8px;
+    border-radius: 5px;
+  }
+  
+  .pagination a {
+    color: white;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-right: 5px;
+  }
+  
+  .pagination a.active {
+    background-color: #487e4a;
+    color: white;
+  }
+  
+  .pagination a:hover:not(.active) {
+    background-color: #ddd;
+    color: black;
+  }
+
+  .btn-secondary-clicked:not(:disabled):not(.disabled).active, .btn-secondary-clicked:not(:disabled):not(.disabled):active, .show>.btn-secondary-clicked.dropdown-toggle {
+    color: #fff;
+    background-color: #487e4b;
+      border-color: #8fb82f;
+  }
