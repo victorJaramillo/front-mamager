@@ -5,6 +5,8 @@ import { UtilService } from 'src/app/services/util.service';
 import { environment as env } from 'src/environment/environment';
 import { ModalInfoService } from 'src/app/services/modal-info.service';
 import { ModalMessageComponent } from 'src/app/modal/modal-message/modal-message.component';
+import { ModalApikeyDetailsComponent } from 'src/app/modal/modal-apikey-details/modal-apikey-details.component';
+import { ModalEditValuesComponent } from 'src/app/modal/modal-edit-values/modal-edit-values.component';
 
 @Component({
   selector: 'app-anime',
@@ -16,6 +18,8 @@ export class AnimeComponent implements OnInit  {
 
   modalRef: MdbModalRef<ModalComponent> | null = null;
   modalMessRef: MdbModalRef<ModalMessageComponent> | null = null;
+  modalDetailsApikeyRef: MdbModalRef<ModalApikeyDetailsComponent> | null = null;
+  modalEditValues: MdbModalRef<ModalEditValuesComponent> | null = null;
 
   spinnerActive: Boolean = false
   spinnerActiveIndicator: boolean = false;
@@ -144,4 +148,10 @@ export class AnimeComponent implements OnInit  {
   }
   
   // < --- FILTERS --- > 
+
+  public openModalDetails(item:any) {
+    console.log(item);
+    
+    const modalEditValues = this.modalService.open(ModalEditValuesComponent)
+  }
 }

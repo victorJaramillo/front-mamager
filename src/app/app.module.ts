@@ -35,6 +35,7 @@ import { TodoListComponent } from './admin/todo-list/todo-list.component';
 import { ChartsComponent } from './admin/charts/charts.component';
 
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
+import { ModalEditValuesComponent } from './modal/modal-edit-values/modal-edit-values.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
     ModalApikeyDetailsComponent,
     ModalApikeyValuesComponent,
     TodoListComponent,
-    ChartsComponent
+    ChartsComponent,
+    ModalEditValuesComponent
   ],
   imports: [
     BrowserModule,
