@@ -1,6 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
+import { CatchResponseService } from 'src/app/services/catch-response.service';
 import { ModalEditAnimeService } from 'src/app/services/modal-edit-anime.service';
+import { UtilService } from 'src/app/services/util.service';
+import { environment as env } from 'src/environment/environment';
 
 @Component({
   selector: 'app-modal-edit-values',
@@ -15,8 +18,14 @@ export class ModalEditValuesComponent {
   spinnerActive:boolean = false;
   confirmDelete:boolean = false;
 
+  headers: any = { 'apikey': env.API_KEY }
+
+  endpointDeleteAnime: string = 'https://nodeapi.vjdev.xyz/api/v1/animeonline/delete/'
+
   constructor(public modalRef: MdbModalRef<ModalEditValuesComponent>,
-    private modalEditService: ModalEditAnimeService){
+    private modalEditService: ModalEditAnimeService,
+    private responseService: CatchResponseService,
+    private util: UtilService){
       
     }
     
@@ -40,11 +49,17 @@ export class ModalEditValuesComponent {
   
   confirmDeleteButton(){
     this.confirmDelete = true
-    console.log(this.item);
   }
   
   delete(){
     this.spinnerActive = true
+    this.util.httpDeleteRequest(`${this.endpointDeleteAnime}${this.item.id}`, this.headers).subscribe( (res: any) => {
+      if(res.status === 'ok'){
+        res.current_page = this.item.current_page
+        this.responseService.setResponse(res)
+        this.modalRef.close()
+      }
+    })
   }
 
 }

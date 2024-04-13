@@ -25,6 +25,10 @@ export class UtilService {
   httpPutRequest(url:string, body:any, headers?:any) {
     return this.http.put(url, body, this.getHttpOptions(headers))
   }
+  
+  httpDeleteRequest(url:string, headers?:any) {
+    return this.http.delete(url, this.getHttpOptions(headers))
+  }
 
   buildQueryString(queryParams:any) {
     return Object.keys(queryParams).map(key => key + '=' + queryParams[key]).join('&');

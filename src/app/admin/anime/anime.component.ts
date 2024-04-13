@@ -8,6 +8,7 @@ import { ModalMessageComponent } from 'src/app/modal/modal-message/modal-message
 import { ModalApikeyDetailsComponent } from 'src/app/modal/modal-apikey-details/modal-apikey-details.component';
 import { ModalEditValuesComponent } from 'src/app/modal/modal-edit-values/modal-edit-values.component';
 import { ModalEditAnimeService } from 'src/app/services/modal-edit-anime.service';
+import { CatchResponseService } from 'src/app/services/catch-response.service';
 
 @Component({
   selector: 'app-anime',
@@ -45,15 +46,29 @@ export class AnimeComponent implements OnInit  {
     private util: UtilService,
     private modalService: MdbModalService,
     private modalInfoService: ModalInfoService,
-    private modalEditService: ModalEditAnimeService
+    private modalEditService: ModalEditAnimeService,
+    private responseService: CatchResponseService
   ){}
 
 
   ngOnInit(): void {
-    this.clickedPage = 1;
-    this.pages = []
-    this.spinnerActiveIndicator = true
-    this.getConfiguredAnimes()
+    this.responseService.selectResponse$.subscribe((val) => {
+      if(val.status === 'ok'){
+        
+        this.pages = []
+        this.spinnerActiveIndicator = true
+        this.getConfiguredAnimes()
+        this.clickedPage = val.current_page;
+        this.changeCurrentPage(this.clickedPage)
+        
+      }else {
+        this.clickedPage = 1;
+        this.pages = []
+        this.spinnerActiveIndicator = true
+        this.getConfiguredAnimes()
+
+      }
+    })
   }
 
   // < ---- HTTP ----- >
@@ -152,6 +167,9 @@ export class AnimeComponent implements OnInit  {
   // < --- FILTERS --- > 
 
   public openModalDetails(item:any) {
+    item.current_page = this.clickedPage
+    console.log(item);
+    
     this.modalEditService.setItem(item)
     this.modalService.open(ModalEditValuesComponent)
   }
