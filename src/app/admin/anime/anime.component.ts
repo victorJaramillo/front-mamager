@@ -52,21 +52,17 @@ export class AnimeComponent implements OnInit  {
 
 
   ngOnInit(): void {
+    this.getConfiguredAnimes()
+    this.pages = []
+    this.spinnerActiveIndicator = true
     this.responseService.selectResponse$.subscribe((val) => {
       if(val.status === 'ok'){
-        
-        this.pages = []
-        this.spinnerActiveIndicator = true
-        this.getConfiguredAnimes()
         this.clickedPage = val.current_page;
         this.changeCurrentPage(this.clickedPage)
         
       }else {
         this.clickedPage = 1;
-        this.pages = []
-        this.spinnerActiveIndicator = true
-        this.getConfiguredAnimes()
-
+        this.changeCurrentPage(this.clickedPage)
       }
     })
   }
