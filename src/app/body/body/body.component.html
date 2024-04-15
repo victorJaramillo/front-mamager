@@ -123,6 +123,7 @@
                     <tr>
                       <th>Image</th>
                       <th>Title</th>
+                      <th>Chapter number</th>
                       <th>Chapter name</th>
                       <th>Season</th>
                       <th>Link</th>
@@ -140,7 +141,9 @@
                       <!-- <td><img src="/assets/icon.png"></td> -->
                       <td><img src="{{item.chapter_image}}"></td>
                       <td>{{item.title}}</td>
-                      <td>{{item.chapter_name | slice:0:20}}</td>
+                      <!-- <td>{{item.chapter_name | slice:0:20}}</td> -->
+                      <td>{{item.chapter_number}}</td>
+                      <td>{{item.chapter_name}}</td>
                       <td class="text-info">{{item.season}} <i class="mdi mdi-arrow-down"></i></td>
                       <td><a #link (click)="clickedLink(item)" href="{{item.chapter_link}}">{{item.chapter_link |
                           slice:0:20}}</a></td>
