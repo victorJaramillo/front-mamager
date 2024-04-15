@@ -137,7 +137,8 @@
                   </div>
                   <tbody *ngFor="let item of configured_animes.results">
                     <tr>
-                      <td><img src="/assets/icon.png"></td>
+                      <!-- <td><img src="/assets/icon.png"></td> -->
+                      <td><img src="{{item.chapter_image}}"></td>
                       <td>{{item.title}}</td>
                       <td>{{item.chapter_name | slice:0:20}}</td>
                       <td class="text-info">{{item.season}} <i class="mdi mdi-arrow-down"></i></td>
