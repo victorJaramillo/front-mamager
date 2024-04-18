@@ -105,6 +105,14 @@ export class HeaderComponent implements OnInit{
       this.onResize()
     }, 500);
   }
+  navigateCurrencies() {
+    this.router.navigate(['/admin/currencies']);
+    setTimeout(() => {
+      this.dropDownAdminMenu.hide()
+      this.basicCollapse.hide()
+      this.onResize()
+    }, 500);
+  }
   navigateAnime() {
     this.router.navigate(['/admin/animes']);
     setTimeout(() => {
