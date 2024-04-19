@@ -6,27 +6,21 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class TableInfoService {
 
-  private $table_title = new BehaviorSubject<any>({});
-  getTableTitle$ = this.$table_title.asObservable()
-  private $table_subtitle = new BehaviorSubject<any>({});
-  getTableSubTitle = this.$table_subtitle.asObservable()
-  private $table_headers = new BehaviorSubject<any>({});
-  getTableHeaders = this.$table_headers.asObservable()
+  private $current_page = new BehaviorSubject<any>({});
+  getCurrentPage$ = this.$current_page.asObservable()
   private $table_data = new BehaviorSubject<any>({});
   getTableData = this.$table_data.asObservable()
-
+  private $stop_table_spinner = new BehaviorSubject<any>({});
+  getSpinnerStatus = this.$stop_table_spinner.asObservable()
   constructor() { }
 
-  setTableTitle(title: any) {
-    this.$table_title.next(title)
-  }
-  setTableSubTitle(subtitle: any) {
-    this.$table_subtitle.next(subtitle)
-  }
-  setTableHeaders(headers: any) {
-    this.$table_headers.next(headers)
+  changeCurrentPage(page: any) {
+    this.$current_page.next(page)
   }
   setTableData(data: any) {
     this.$table_data.next(data)
+  }
+  stopSpinner(val:boolean) {
+    this.$stop_table_spinner.next(val)
   }
 }

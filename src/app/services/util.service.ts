@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment as env } from 'src/environment/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +8,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class UtilService {
 
   constructor(private http: HttpClient) { }
+
+  headers: any = { 'apikey': env.API_KEY }
 
   getHttpOptions(headers:any) {
     return {
