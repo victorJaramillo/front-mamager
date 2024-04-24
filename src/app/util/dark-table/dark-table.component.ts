@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { ModalEditValuesTemplateService } from 'src/app/services/modal-edit-values-template.service';
 import { TableInfoService } from 'src/app/services/table-info.service';
 
 @Component({
@@ -8,18 +9,24 @@ import { TableInfoService } from 'src/app/services/table-info.service';
 })
 export class DarkTableComponent {
 
+  @ViewChild('val') inputValues:any;
+
   title: any = "";
   subtitle: any = "";
   headers: any = []
   items: any = []
   pages: any = []
   item_keys: any = []
-
+  edit:boolean = false
+  details:boolean = false
 
   clickedPage:number = 1
   spinnerActiveIndicator: boolean = false
 
-  constructor(private tableInfoService: TableInfoService){}
+  editItem:boolean = false;
+  editItemIndex = null
+
+  constructor(private tableInfoService: TableInfoService, private modalTemplate: ModalEditValuesTemplateService){}
 
   ngOnInit(): void {
     this.spinnerActiveIndicator = true
@@ -33,6 +40,13 @@ export class DarkTableComponent {
         this.pages.push(index+1)
       }
       
+      if(val.table_edit) {
+        this.edit = val.table_edit
+      }
+      if(val.table_details) {
+        this.details = val.table_details
+      }
+
       this.item_keys = val.table_data_keys
       this.tableInfoService.getSpinnerStatus.subscribe((x) => this.spinnerActiveIndicator = x)
     })
@@ -44,8 +58,28 @@ export class DarkTableComponent {
     this.tableInfoService.getCurrentPage$.subscribe((val) => this.clickedPage = val)
   }
 
-  openModal() {
+  // openModal(item: any) {
+  //   const itemKeys = Object.keys(item)
+  //   var modalValues:any = {}
+  //   modalValues.inputNames = itemKeys
+  //   modalValues.inputValues = item
+
+  //   this.modalTemplate.setValuesTemplate(modalValues)
+  //   this.tableInfoService.openModal(true)
+  // }
+
+  editting(ind: any) {
+    this.editItemIndex = ind
+    this.editItem = true
+  }
+  
+  saveEdditedItem(item: any){
+    item[this.item_keys[0]] = this.inputValues.nativeElement.value
     
+    console.log(item);
+    
+    this.editItem = false
+    this.editItemIndex = null
   }
 
 }

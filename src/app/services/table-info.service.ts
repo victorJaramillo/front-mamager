@@ -12,6 +12,8 @@ export class TableInfoService {
   getTableData = this.$table_data.asObservable()
   private $stop_table_spinner = new BehaviorSubject<any>({});
   getSpinnerStatus = this.$stop_table_spinner.asObservable()
+  private $open_modal = new BehaviorSubject<any>({});
+  openModalStatus = this.$open_modal.asObservable()
   constructor() { }
 
   changeCurrentPage(page: any) {
@@ -22,5 +24,8 @@ export class TableInfoService {
   }
   stopSpinner(val:boolean) {
     this.$stop_table_spinner.next(val)
+  }
+  openModal(val:boolean){
+    this.$open_modal.next(val)
   }
 }

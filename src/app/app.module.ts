@@ -38,6 +38,7 @@ import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 import { ModalEditValuesComponent } from './modal/modal-edit-values/modal-edit-values.component';
 import { CurrenciesComponent } from './admin/currencies/currencies.component';
 import { DarkTableComponent } from './util/dark-table/dark-table.component';
+import { ModalEditTwoValuesComponent } from './modal/modal-edit-values-template/modal-edit-two-values.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { DarkTableComponent } from './util/dark-table/dark-table.component';
     ChartsComponent,
     ModalEditValuesComponent,
     CurrenciesComponent,
-    DarkTableComponent
+    DarkTableComponent,
+    ModalEditTwoValuesComponent
   ],
   imports: [
     BrowserModule,

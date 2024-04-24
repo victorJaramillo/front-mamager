@@ -163,9 +163,7 @@ export class AnimeComponent implements OnInit  {
   // < --- FILTERS --- > 
 
   public openModalDetails(item:any) {
-    item.current_page = this.clickedPage
-    console.log(item);
-    
+    item.current_page = this.clickedPage    
     this.modalEditService.setItem(item)
     this.modalService.open(ModalEditValuesComponent)
   }

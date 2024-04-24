@@ -26,8 +26,7 @@
                                     <th class="new-anime-style">
                                         <!-- <label class="card-title">Configure new anime</label> -->
                                         <div class="input-group">
-                                            <button class="badge btn btn-sm new-anime-style-button"
-                                                (click)="openModal()">
+                                            <button class="badge btn btn-sm new-anime-style-button">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="currentColor" class="bi bi-plus-circle" viewBox="0 0 16 16">
                                                     <path
@@ -53,23 +52,42 @@
                                     </div>
                                     <thead >
                                         <tr>
-                                            <th *ngFor="let header of headers"><p>{{header}}</p></th>
+                                            <th *ngFor="let header of headers">
+                                                <p>{{header}}</p>
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody *ngFor="let item of items; index as i">
                                         <tr>
-                                            <td *ngFor="let key of item_keys"><p>{{item[key]}}</p></td>
-                                            <td>
-                                                <button class="badge btn btn-sm new-anime-style-button" >
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                        fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
-                                                        <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
-                                                        <path
-                                                            d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
-                                                    </svg>
-                                                </button>
+                                            <td *ngFor="let key of item_keys; index as xi">
+                                                <p >{{item[key]}}</p>
+                                                <input #val type="text" 
+                                                class="custom_input_style"
+                                                *ngIf="editItem && editItemIndex == i && xi == 0"
+                                                value="{{item[key]}}">
                                             </td>
-                                            <td>
+                                            <td *ngIf="edit">
+                                                <button class="badge btn btn-sm new-anime-style-button" (click)="editting(i)" 
+                                                    *ngIf="!editItem && editItemIndex == null">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                                                    <path
+                                                    d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                                                </svg>
+                                                </button>
+                                                <button class="badge btn btn-sm new-anime-style-button" *ngIf="editItem && editItemIndex == i" 
+                                                    (click)="saveEdditedItem(item)">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                                        class="bi bi-sd-card-fill" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M12.5 0H5.914a1.5 1.5 0 0 0-1.06.44L2.439 2.853A1.5 1.5 0 0 0 2 3.914V14.5A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-13A1.5 1.5 0 0 0 12.5 0Zm-7 2.75a.75.75 0 0 1 .75.75v2a.75.75 0 0 1-1.5 0v-2a.75.75 0 0 1 .75-.75Zm2 0a.75.75 0 0 1 .75.75v2a.75.75 0 0 1-1.5 0v-2a.75.75 0 0 1 .75-.75Zm2.75.75v2a.75.75 0 0 1-1.5 0v-2a.75.75 0 0 1 1.5 0Zm1.25-.75a.75.75 0 0 1 .75.75v2a.75.75 0 0 1-1.5 0v-2a.75.75 0 0 1 .75-.75Z" />
+                                                    </svg>
+                                                    Save
+                                                </button>
+
+                                            </td>
+                                            <td *ngIf="details ">
                                                 <button class="badge btn btn-sm new-anime-style-button" >
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                         fill="currentColor" class="bi bi-folder2" viewBox="0 0 16 16">
