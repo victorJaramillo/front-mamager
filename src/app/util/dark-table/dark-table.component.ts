@@ -26,6 +26,7 @@ export class DarkTableComponent {
 
   editItem:boolean = false;
   editItemIndex = null
+  editTableRowIndex:number = 0
 
   constructor(private tableInfoService: TableInfoService, private modalTemplate: ModalEditValuesTemplateService){}
 
@@ -36,7 +37,7 @@ export class DarkTableComponent {
       this.subtitle = val.table_subtitle
       this.headers = val.table_headers
       this.items = val.table_data
-      
+      this.editTableRowIndex = val.table_edit_row_index
       for (let index = 0; index < val.table_pages; index++) {
         this.pages.push(index+1)
       }
@@ -65,10 +66,11 @@ export class DarkTableComponent {
   }
   
   saveEdditedItem(item: any){
-    item[this.item_keys[0]] = this.inputValues.nativeElement.value
+    item[this.item_keys[this.editTableRowIndex]] = this.inputValues.nativeElement.value
     
     this.spinnerActive = true
     console.log(item);
+    this.tableInfoService.setEditItem(item)
     setTimeout(() => {
       this.spinnerActive = false
       this.editItem = false

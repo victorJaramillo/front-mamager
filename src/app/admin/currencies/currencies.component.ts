@@ -18,10 +18,11 @@ export class CurrenciesComponent {
   table: any = {
     table_title: "Currencies",
     table_subtitle: "Scraping Currencies",
-    table_headers: ["Value","Name","Date","Action"],
+    table_headers: ["Id","Value","Name","Date","Action"],
     table_pages: 4,
     table_edit: true,
     table_details: false,
+    table_edit_row_index: 1
   }
 
   modalEdit: any = {
@@ -42,10 +43,15 @@ export class CurrenciesComponent {
     this.tableInfoService.getCurrentPage$.
     subscribe((val) => this.changeCurrentPage(val))
 
-    this.tableInfoService.openModalStatus.
-    subscribe((val) => {
-      if(val === true){
-        this.openModal(val)
+    this.tableInfoService.getEditItem.subscribe((item) => {
+      console.log(Object.keys(item).length != 0);
+      
+      if(Object.keys(item).length != 0) {
+        const body = { 'value': item.value }
+        this.util.httpPatchRequest(`${this.url}?id=${item.id}`, body, this.util.headers)
+          .subscribe((res: any) => {
+            console.log(res);
+          })
       }
     })
   }

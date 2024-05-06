@@ -29,6 +29,10 @@ export class UtilService {
     return this.http.put(url, body, this.getHttpOptions(headers))
   }
   
+  httpPatchRequest(url:string, body:any, headers?:any) {
+    return this.http.patch(url, body, this.getHttpOptions(headers))
+  }
+  
   httpDeleteRequest(url:string, headers?:any) {
     return this.http.delete(url, this.getHttpOptions(headers))
   }

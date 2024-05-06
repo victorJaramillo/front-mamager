@@ -62,7 +62,7 @@
                                             <td *ngFor="let key of item_keys; index as xi">
                                                 <p>{{item[key]}}</p>
                                                 <input #val type="text" class="custom_input_style"
-                                                    *ngIf="editItem && editItemIndex == i && xi == 0"
+                                                    *ngIf="editItem && editItemIndex == i && xi == editTableRowIndex"
                                                     value="{{item[key]}}" [disabled]="spinnerActive">
                                             </td>
                                             <td *ngIf="edit">
