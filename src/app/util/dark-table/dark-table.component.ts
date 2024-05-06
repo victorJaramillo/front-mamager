@@ -22,6 +22,7 @@ export class DarkTableComponent {
 
   clickedPage:number = 1
   spinnerActiveIndicator: boolean = false
+  spinnerActive: boolean = false
 
   editItem:boolean = false;
   editItemIndex = null
@@ -58,16 +59,6 @@ export class DarkTableComponent {
     this.tableInfoService.getCurrentPage$.subscribe((val) => this.clickedPage = val)
   }
 
-  // openModal(item: any) {
-  //   const itemKeys = Object.keys(item)
-  //   var modalValues:any = {}
-  //   modalValues.inputNames = itemKeys
-  //   modalValues.inputValues = item
-
-  //   this.modalTemplate.setValuesTemplate(modalValues)
-  //   this.tableInfoService.openModal(true)
-  // }
-
   editting(ind: any) {
     this.editItemIndex = ind
     this.editItem = true
@@ -76,10 +67,13 @@ export class DarkTableComponent {
   saveEdditedItem(item: any){
     item[this.item_keys[0]] = this.inputValues.nativeElement.value
     
+    this.spinnerActive = true
     console.log(item);
-    
-    this.editItem = false
-    this.editItemIndex = null
+    setTimeout(() => {
+      this.spinnerActive = false
+      this.editItem = false
+      this.editItemIndex = null
+    }, 1500);
   }
 
 }
