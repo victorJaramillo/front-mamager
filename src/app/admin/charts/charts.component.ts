@@ -51,7 +51,9 @@ export class ChartsComponent implements OnInit{
     this.util.httpGetRequest(env.CHARTS_ENDPOINT, this.headers).subscribe((res:any) => {
       var dataPointsArr = []
       for (const key of res) {
-        dataPointsArr.push({x: new Date(key.fecha), y: key.valor})
+        var day = new Date(key.fecha)
+        day.setDate(day.getDate()+1)
+        dataPointsArr.push({x: new Date(day.toString()), y: key.valor})
       }
 
       const dollar_chart = {
@@ -90,7 +92,9 @@ export class ChartsComponent implements OnInit{
     this.util.httpGetRequest(`${env.CHARTS_ENDPOINT}/last/month`, this.headers).subscribe((res:any) => {
       var dataPointsArr = []
       for (const key of res) {
-        dataPointsArr.push({x: new Date(key.fecha), y: key.valor})
+        var day = new Date(key.fecha)
+        day.setDate(day.getDate()+1)
+        dataPointsArr.push({x: new Date(day.toString()), y: key.valor})
       }
 
       const dollar_chart = {
@@ -99,7 +103,6 @@ export class ChartsComponent implements OnInit{
         name: "Dollar",
         dataPoints: dataPointsArr
       }
-      
       const dollarData:any = {
         animationEnabled: true,
         theme: "dark2",
@@ -129,7 +132,9 @@ export class ChartsComponent implements OnInit{
     this.util.httpGetRequest(env.CHARTS_UF_ENDPOINT, this.headers).subscribe((res:any) => {
       var dataPointsArr = []
       for (const key of res) {
-        dataPointsArr.push({x: new Date(key.fecha), y: key.valor})
+        var day = new Date(key.fecha)
+        day.setDate(day.getDate()+1)
+        dataPointsArr.push({x: new Date(day.toString()), y: key.valor})
       }
       
       const uf_chart = {
