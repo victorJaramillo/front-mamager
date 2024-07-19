@@ -31,7 +31,7 @@ export class ChartsComponent implements OnInit{
     title: {
       text: "Developer Work Week"
     },
-    subtitles: [{
+    subtitles: [{ 
       text: "Median hours/week"
     }],
     data: [{
